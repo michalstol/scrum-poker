@@ -2,6 +2,7 @@
   "hosting": {
     "public": "public",
     "ignore": [
+      ".travis.yml",
       "firebase.json",
       "package.json",
       "package_lock.json",
