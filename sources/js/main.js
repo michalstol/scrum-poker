@@ -1,7 +1,8 @@
 import SimpleEventer from 'simple-eventer';
 import AuthHandler from './base/auth';
+import { db, auth } from './base/firebase';
 import DefaultRole from './components/default-role';
-import CardHandler from './components/card-handler';
+import PlayerRole from './components/player-role';
 
 const $body = document.body;
 let userRole = false;
@@ -10,8 +11,6 @@ class App {
     constructor() {
         this.initAuth();
         this.initEvents();
-
-        // SimpleEventer.fire('selected-type', 'player');
     }
 
     initAuth() {
@@ -23,13 +22,21 @@ class App {
     }
 
     typeHandler(type) {
+        const { uid, displayName } = auth.currentUser;
         userRole = type;
+        
+        db.ref('session/' + uid).set({
+            role: type,
+            name: displayName,
+            points: false
+        });
 
         switch (type) {
-            case type === 'player':
-                this.initPlayerType();
+            case 'player':
+                this.initDefaultRole();
+                this.initPlayerRole();
                 break;
-            case type === 'croupier':
+            case 'croupier':
                 this.initDefaultRole(true);
                 break;
             default:
@@ -37,8 +44,8 @@ class App {
         }
     }
 
-    initPlayerType() {
-        // new CardHandler();
+    initPlayerRole() {
+        this.playerRole = new PlayerRole();
     }
 
     initDefaultRole(role = false) {

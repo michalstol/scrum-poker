@@ -24,7 +24,7 @@ export default class AuthHandler {
         if (!singletonInstance) {
             singletonInstance = true;
 
-            console.log(auth);
+            // console.log(auth);
 
             this.initDOM($context);
             this.initAuthChangedHandler();
@@ -69,7 +69,8 @@ export default class AuthHandler {
                     this.initTypePanel();
                 }
             } else {
-                location.reload();
+                console.log('reload');
+                // location.reload();
             }
         });
     }
@@ -116,9 +117,11 @@ export default class AuthHandler {
 
         Promise
         .all(promises)
-        .then(() => location.reload())
+        .then(() => {
+            location.reload();
+        })
         .catch(error => {
-            console.log(error);
+            alert(error);
             $form.classList.remove(classes.prevent);
         });
     }

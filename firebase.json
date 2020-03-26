@@ -1,0 +1,20 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "package.json",
+      "package_lock.json",
+      "firebase-debug.log",
+      "README.md",
+      ".gitignore",
+      "**/.*",
+      "**/functions/**",
+      "**/gulp/**",
+      "**/node_modules/**",
+      "**/sources/**",
+      "**/_temp/**",
+      "**/bashScripts/**"
+    ]
+  }
+}

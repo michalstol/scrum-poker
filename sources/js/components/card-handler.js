@@ -1,7 +1,9 @@
 import { throttle } from 'throttle-debounce';
+import SimpleEventer from 'simple-eventer';
 
 import CardFigures from './card-figures';
 
+const $body = document.body;
 const maxRotation = 20;
 const observerOptions = {
     root: null,
@@ -10,19 +12,19 @@ const observerOptions = {
 };
 const classes = {
     changeFigure: 'change-figure',
-    isVoted: 'is-voted'
+    isVoted: 'show-results'
 };
 
-export default class CardHandler {
+export default class CardHandler extends SimpleEventer {
     constructor($context = document.getElementById('card')) {
+        super();
+        
         this.initDOM($context);
         this.initData();
         this.initFigures();
         this.initObserver();
         this.initEvents();
         this.initOrientation();
-
-        // this.fake();
     }
 
     initDOM($context) {
@@ -65,6 +67,7 @@ export default class CardHandler {
                     const text = entry.target.textContent.trim();
                     const value = parseInt(text);
                     
+                    this.points = text;
                     this.figuresHandler.create(isNaN(value) || value === 0 ? 1 : value);
                     
                     for (let $smallText of this.dom.$cardSmallText) {
@@ -102,7 +105,10 @@ export default class CardHandler {
             this.data.eventTimeout = setTimeout(() => $context.classList.remove(changeFigure), 1000);
         });
 
-        $cardBtn.addEventListener('click', () => $context.classList.add(isVoted));
+        $cardBtn.addEventListener('click', () => {
+            $body.classList.add(isVoted);
+            this.savePoints();
+        });
     }
 
     clearEventTimeout(timeout) {
@@ -121,18 +127,35 @@ export default class CardHandler {
             $context.style.setProperty('--x-deg', x);
             $context.style.setProperty('--y-deg', y);
 
-            console.log({x, y});
-            console.log(Math.round(e.gamma), Math.round(e.beta));
+            // console.log({x, y});
+            // console.log(Math.round(e.gamma), Math.round(e.beta));
         }, true);
     }
 
     parseData(x) {
         if (x > 90) {
             x = 90 * 2 - x;
-        } else if (y < -90) {
+        } else if (x < -90) {
             x = -90 * 2 - x;
         }
 
         return x;
+    }
+    
+    savePoints() {
+        this.fire('save-points', this.points);
+    }
+    
+    reset() {
+        const { isVoted, changeFigure } = classes;
+        
+        if ($body.getAttribute('class').indexOf(isVoted) !== -1) {
+            $body.classList.remove(isVoted);
+            
+            this.dom.$context.classList.add(changeFigure);
+            this.dom.$cardNumber.scrollTop = 0;
+            
+            setTimeout(() => this.dom.$context.classList.remove(changeFigure), 1500);
+        }
     }
 }
