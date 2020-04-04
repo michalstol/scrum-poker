@@ -2,7 +2,7 @@ langauge: node_js
 node_js:
   - "10.10.0"
 install:
-  - echo 'Deploy!'
+  - npm install
 script:
   - cd gulp/
   - gulp build:production
