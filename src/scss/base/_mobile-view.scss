@@ -1,0 +1,22 @@
+html, body {
+    
+}
+
+html {
+    position: relative;
+}
+
+body {
+    $bHeight: 90vh;
+    $bWidth: $bHeight * 1024 / 1920;
+
+    @include media('>=tablet') {
+        position: absolute;
+        top: calc(50% - #{$bHeight / 2});
+        left: calc(50% - #{$bWidth / 2});
+        width: $bWidth;
+        height: $bHeight;
+        border-radius: 10px;
+        filter: drop-shadow(2px 4px 7px rgba($color-black, 0.1));
+    }
+}
