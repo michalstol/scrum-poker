@@ -1,12 +1,11 @@
-import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
+import AppHead from '../base/AppHead';
+
+export default function Index() {
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Scrum Poker</title>
-      </Head>
+      <AppHead />
     </div>
   );
 }
