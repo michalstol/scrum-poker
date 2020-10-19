@@ -1,11 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
+
+import { checkCookie } from './helpers/cookie';
+import AppContext, { defaultInterface } from './contexts/AppContext';
 
 function App() {
     return (
-        <>
-            <div>App</div>
-        </>
+        <AppContext.Provider value={{ ...defaultInterface, ...checkCookie() }}>
+            <>App</>
+        </AppContext.Provider>
     );
 }
 
