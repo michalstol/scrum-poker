@@ -3,26 +3,22 @@ import React from 'react';
 interface InputInterface {
     type: string;
     name: string;
+    value: string;
     id?: string;
     placeholder?: string;
-    onChange(): any;
+    minLength?: number;
+    maxLength?: number;
+    setValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function Input({
-    type,
-    name,
-    id,
-    placeholder,
-    onChange,
-}: InputInterface) {
+export default function Input({ setValue, ...all }: InputInterface) {
     return (
         <fieldset>
             <input
-                type={type}
-                name={name}
-                id={id}
-                placeholder={placeholder}
-                onChange={onChange}
+                {...all}
+                onChange={function (event) {
+                    setValue(event.target.value);
+                }}
             />
         </fieldset>
     );

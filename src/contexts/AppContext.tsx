@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { checkCookie } from './../helpers/cookie';
+
 // AuthInterface
 export interface AuthInterface {
     authenticated: boolean;
@@ -9,22 +11,23 @@ export interface AuthInterface {
 export const defaultAuth = {
     authenticated: false,
     connected: false,
+    ...checkCookie(),
 };
 
 // UpdateContext
-export interface UpdateContext {
-    updateContext(): any;
+export interface UpdateContextInterface {
+    updateContext(newStatus: object): any;
 }
 
 export const defaultUpdateContext = {
-    updateContext: function () {},
+    updateContext: function ({}) {},
 };
 
 // ContextInterface
 export interface ContextInterface {
     clone(authenticated: AuthInterface): AuthInterface;
     clone(connected: AuthInterface): AuthInterface;
-    clone(updateContext: UpdateContext): UpdateContext;
+    clone(updateContext: UpdateContextInterface): UpdateContextInterface;
 }
 
 export const defaultInterface = {
