@@ -11,7 +11,7 @@ export interface AuthInterface {
 export const defaultAuth = {
     authenticated: false,
     connected: false,
-    ...checkCookie(),
+    ...checkCookie(undefined, ['authenticated']),
 };
 
 // UpdateContext

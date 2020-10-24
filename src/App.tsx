@@ -11,11 +11,29 @@ function App() {
         updateContext: (newState: any) =>
             setAppState({ ...appState, ...newState }),
     });
-
-    console.table(appState);
+    const { authenticated, connected } = appState;
 
     return (
         <AppContext.Provider value={appState}>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>authenticated</th>
+                            <th>connected</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{authenticated ? 'true' : 'false'}</td>
+                            <td>{connected ? 'true' : 'false'}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <hr />
+
             <Auth updateContext={appState.updateContext} />
             <SignInForm />
         </AppContext.Provider>
