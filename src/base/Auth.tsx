@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { auth } from './../firebase/firebase';
-import { setCookie, checkCookie } from './../helpers/cookie';
+import { setCookie } from './../helpers/cookie';
 
 import { UpdateContextInterface, defaultAuth } from './../contexts/AppContext';
 

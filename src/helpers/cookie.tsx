@@ -13,7 +13,7 @@ export function checkCookie(name = defaultCookie, params: string[] = []) {
             for (let param of params) {
                 const tempValue = parseCookie[param];
 
-                if (typeof tempValue !== undefined)
+                if (typeof tempValue !== 'undefined')
                     paramsObject[param] = tempValue;
             }
 
