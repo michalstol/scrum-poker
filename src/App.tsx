@@ -8,6 +8,7 @@ import Auth from './base/Auth';
 import SignInForm from './components/SignInForm';
 import SetRoom from './components/SetRoom';
 import SelectRole from './components/SelectRole';
+import Room from './components/Room';
 
 function App() {
     const [appState, setAppState] = useState({
@@ -53,6 +54,10 @@ function App() {
 
             {authenticated && connected && roomID && (
                 <SelectRole updateContext={updateContext} roomID={roomID} />
+            )}
+
+            {authenticated && connected && roomID && role && (
+                <Room roomID={roomID} />
             )}
         </>
     );

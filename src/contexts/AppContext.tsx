@@ -1,7 +1,7 @@
 import { checkCookie } from './../helpers/cookie';
 import { getURLParam } from './../helpers/url-param';
 
-import { RoleInterface, roles } from './RoomContext';
+import { RoleInterface } from './RoomContext';
 
 // AuthInterface
 export interface AuthInterface {

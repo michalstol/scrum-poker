@@ -35,8 +35,9 @@ export default function SelectRole({
             .doc(uid)
             .set({
                 ...defaultRoomUser,
-                name: displayName,
                 ...newRole,
+                uid,
+                name: displayName,
             })
             .then(() => {
                 updateContext({ ...newRole }, true);

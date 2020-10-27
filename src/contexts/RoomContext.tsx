@@ -1,5 +1,3 @@
-import firebase from 'firebase';
-
 export interface RoomInterface {
     name: string;
     admin: string;
@@ -17,6 +15,7 @@ export interface RoleInterface {
 }
 
 export interface UserInterface {
+    uid: string;
     name: string;
     bet: undefined | number;
     voted: boolean;
@@ -24,6 +23,7 @@ export interface UserInterface {
 }
 
 export const defaultRoomUser = {
+    uid: '',
     name: '',
     role: roles[0],
     bet: null,
