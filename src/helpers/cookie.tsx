@@ -1,11 +1,22 @@
-const defaultCookie = 'sp-cookie';
+const cookieName = 'sp-cookie';
+let currentCookie = {};
 
-export function checkCookie(name = defaultCookie, params: string[] = []) {
+function updateCookieData(data: any): any {
+    if (!data) return {};
+
+    currentCookie = { ...currentCookie, ...data };
+
+    return currentCookie;
+}
+
+export function checkCookie(params: string[] = []) {
     const cookies = document.cookie.split('; ');
 
     for (let cookie of cookies) {
-        if (cookie.indexOf(name) === 0) {
-            const parseCookie = JSON.parse(cookie.replace(`${name}=`, ''));
+        if (cookie.indexOf(cookieName) === 0) {
+            const parseCookie = updateCookieData(
+                JSON.parse(cookie.replace(`${cookieName}=`, ''))
+            );
             let paramsObject: any = {};
 
             if (params.length === 0) return { ...parseCookie };
@@ -24,16 +35,14 @@ export function checkCookie(name = defaultCookie, params: string[] = []) {
     return {};
 }
 
-export function setCookie(name = defaultCookie, data: any, days = 0) {
+export function setCookie(data: any) {
     if (!data) return;
 
-    let newCookie = `${name}=${JSON.stringify(data)}`;
-
-    if (days && typeof days === 'number') {
-        const newDate = new Date().getTime() + days * 24 * 60 * 60 * 1000;
-
-        newCookie += `; expires=${new Date(newDate).toUTCString()}`;
-    }
+    const newData = updateCookieData(data);
+    const newDate = new Date().getTime() + 365 * 24 * 60 * 60 * 1000;
+    const newCookie = `${cookieName}=${JSON.stringify(
+        newData
+    )}; expires=${new Date(newDate).toUTCString()}`;
 
     document.cookie = newCookie;
 }

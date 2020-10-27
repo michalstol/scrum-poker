@@ -1,28 +1,31 @@
-import React from 'react';
 import firebase from 'firebase';
 
 export interface RoomInterface {
     name: string;
     admin: string;
-    users: [];
 }
 
 export const defaultRoom = {
     name: 'Scrum Poker',
     admin: '',
-    users: [],
 };
 
+export const roles = ['spectator', 'croupier', 'player'];
+
+export interface RoleInterface {
+    role: null | 'croupier' | 'spectator' | 'player';
+}
+
 export interface UserInterface {
-    uid: string;
     name: string;
-    role: 'croupier' | 'spectator' | 'player';
-    bet: null | number;
+    bet: undefined | number;
+    voted: boolean;
+    clone(role: RoleInterface): RoleInterface;
 }
 
 export const defaultRoomUser = {
-    uid: '',
     name: '',
-    role: 'spectator',
+    role: roles[0],
     bet: null,
+    voted: false,
 };

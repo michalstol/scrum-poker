@@ -4,6 +4,7 @@ interface InputInterface {
     type: string;
     name: string;
     value: string;
+    label?: string;
     id?: string;
     placeholder?: string;
     minLength?: number;
@@ -11,9 +12,10 @@ interface InputInterface {
     setValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function Input({ setValue, ...all }: InputInterface) {
+export default function Input({ setValue, label, ...all }: InputInterface) {
     return (
         <fieldset>
+            {label && <label>{label}</label>}
             <input
                 {...all}
                 onChange={function (event) {

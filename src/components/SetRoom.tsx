@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 // import { FirebaseAuth } from '@firebase/auth-types';
 
 import { auth, db } from './../firebase/firebase';
@@ -9,34 +9,37 @@ import { defaultRoom } from './../contexts/RoomContext';
 import Input from './form-component/Input';
 import Button from './form-component/Button';
 
-const dbRooms = db.collection('rooms');
-
 export default function SetRoom({
     updateContext,
 }: UpdateContextInterface): any {
+    const dbRooms = db.collection('rooms');
     const [roomID, setRoomID] = useState('');
     const [roomName, setRoomName] = useState('');
-    const [newRoomID, setNewRoomID] = useState('');
-
-    useEffect(() => {
-        if (newRoomID === '') return;
-
-        updateContext({
-            roomID: newRoomID,
-        });
-    }, [newRoomID]);
 
     const joinRoomHandler = (event: React.SyntheticEvent): void => {
         event.preventDefault();
 
-        console.log({ roomID });
+        dbRooms
+            .doc(roomID)
+            .get()
+            .then(doc => {
+                if (!doc.exists) return;
+
+                updateContext(
+                    {
+                        roomID,
+                    },
+                    true
+                );
+            })
+            .catch(error => console.log(error));
     };
 
     const createRoomHandler = (event: React.SyntheticEvent): void => {
         event.preventDefault();
 
         // typescript FirebaseAuth from @firebase/auth-types
-        const { uid, displayName }: any = auth.currentUser;
+        const { uid }: any = auth.currentUser;
 
         dbRooms
             .add({
@@ -48,7 +51,12 @@ export default function SetRoom({
             .then(doc => {
                 const { id } = doc;
 
-                setNewRoomID(id);
+                updateContext(
+                    {
+                        roomID: id,
+                    },
+                    true
+                );
             });
     };
 

@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
 
-import AppContext, { defaultInterface } from './contexts/AppContext';
+import { setCookie } from './helpers/cookie';
+
+import { defaultInterface } from './contexts/AppContext';
 
 import Auth from './base/Auth';
 import SignInForm from './components/SignInForm';
 import SetRoom from './components/SetRoom';
+import SelectRole from './components/SelectRole';
 
 function App() {
     const [appState, setAppState] = useState({
         ...defaultInterface,
-        updateContext: (newState: any) =>
-            setAppState({ ...appState, ...newState }),
     });
-    const { authenticated, connected, roomID, updateContext } = appState;
+
+    const updateContext = (newState: any, updateCookie?: boolean): any => {
+        setAppState({ ...appState, ...newState });
+
+        updateCookie && setCookie({ ...newState });
+    };
+
+    const { authenticated, connected, roomID, role } = appState;
 
     return (
-        <AppContext.Provider value={appState}>
+        <>
             <div>
                 <table>
                     <thead>
@@ -23,13 +31,15 @@ function App() {
                             <th>authenticated</th>
                             <th>connected</th>
                             <th>roomID</th>
+                            <th>role</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>{authenticated ? 'true' : 'false'}</td>
                             <td>{connected ? 'true' : 'false'}</td>
-                            <td>{roomID !== null ? roomID : 'null'}</td>
+                            <td>{!!roomID ? roomID : 'null'}</td>
+                            <td>{!!role ? role : 'null'}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -40,7 +50,11 @@ function App() {
             <Auth updateContext={updateContext} />
             <SignInForm />
             <SetRoom updateContext={updateContext} />
-        </AppContext.Provider>
+
+            {authenticated && connected && roomID && (
+                <SelectRole updateContext={updateContext} roomID={roomID} />
+            )}
+        </>
     );
 }
 

@@ -1,6 +1,7 @@
-import React from 'react';
-
 import { checkCookie } from './../helpers/cookie';
+import { getURLParam } from './../helpers/url-param';
+
+import { RoleInterface, roles } from './RoomContext';
 
 // AuthInterface
 export interface AuthInterface {
@@ -11,22 +12,29 @@ export interface AuthInterface {
 export const defaultAuth = {
     authenticated: false,
     connected: false,
-    ...checkCookie(undefined, ['authenticated']),
+    ...checkCookie(['authenticated']),
 };
 
 // RoomInterface
 export interface RoomIDInterface {
-    roomID: null | string;
+    roomID: undefined | string;
 }
 
 export const defaultRoom = {
-    roomID: null,
-    ...checkCookie(undefined, ['roomID']),
+    roomID: undefined,
+    ...checkCookie(['roomID']),
+    ...getURLParam('roomID'),
+};
+
+export const defaultRole = {
+    role: undefined,
+    ...checkCookie(['role']),
+    ...getURLParam('role'),
 };
 
 // UpdateContext
 export interface UpdateContextInterface {
-    updateContext(newStatus: object): any;
+    updateContext(newStatus: object, updateCookie?: boolean): any;
 }
 
 export const defaultUpdateContext = {
@@ -38,15 +46,11 @@ export interface ContextInterface {
     clone(authenticated: AuthInterface): AuthInterface;
     clone(connected: AuthInterface): AuthInterface;
     clone(roomID: RoomIDInterface): RoomIDInterface;
-    clone(updateContext: UpdateContextInterface): UpdateContextInterface;
+    clone(role: RoleInterface): RoleInterface;
 }
 
 export const defaultInterface = {
     ...defaultAuth,
     ...defaultRoom,
-    ...defaultUpdateContext,
+    ...defaultRole,
 };
-
-const AppContext = React.createContext({ ...defaultInterface });
-
-export default AppContext;

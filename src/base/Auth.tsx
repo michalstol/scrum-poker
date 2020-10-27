@@ -10,7 +10,9 @@ export default function Auth({ updateContext }: UpdateContextInterface): any {
     const [userData, setUserData] = useState({ uid: 'false' });
 
     useEffect(() => {
-        setCookie(undefined, { authenticated: authState.authenticated }, 365);
+        setCookie({
+            authenticated: authState.authenticated,
+        });
 
         updateContext({
             ...authState,
