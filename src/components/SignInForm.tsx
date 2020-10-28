@@ -3,8 +3,8 @@ import firebase from 'firebase';
 
 import { auth } from '../firebase/firebase';
 
-import Input from './form-component/Input';
-import Button from './form-component/Button';
+import Input from './form-components/Input';
+import Button from './form-components/Button';
 
 export default function SignInForm(): any {
     const [email, setEmail] = useState('');

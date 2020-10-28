@@ -26,6 +26,6 @@ export const defaultRoomUser = {
     uid: '',
     name: '',
     role: roles[0],
-    bet: null,
+    bet: 0,
     voted: false,
 };

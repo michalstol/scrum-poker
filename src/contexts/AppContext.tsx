@@ -29,7 +29,6 @@ export const defaultRoom = {
 export const defaultRole = {
     role: undefined,
     ...checkCookie(['role']),
-    ...getURLParam('role'),
 };
 
 // UpdateContext

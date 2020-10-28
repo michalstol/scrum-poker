@@ -6,8 +6,8 @@ import { auth, db } from './../firebase/firebase';
 import { UpdateContextInterface } from './../contexts/AppContext';
 import { defaultRoom } from './../contexts/RoomContext';
 
-import Input from './form-component/Input';
-import Button from './form-component/Button';
+import Input from './form-components/Input';
+import Button from './form-components/Button';
 
 export default function SetRoom({
     updateContext,

@@ -8,8 +8,8 @@ import {
 } from './../contexts/AppContext';
 import { defaultRoomUser, roles } from './../contexts/RoomContext';
 
-import Select from './form-component/Select';
-import Button from './form-component/Button';
+import Select from './form-components/Select';
+import Button from './form-components/Button';
 
 interface SelectRoleInterface extends UpdateContextInterface, RoomIDInterface {}
 
