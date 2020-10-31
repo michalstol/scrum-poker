@@ -3,6 +3,7 @@ import firebase from 'firebase';
 
 import { auth } from '../firebase/firebase';
 
+import Form from './form-components/Form';
 import Input from './form-components/Input';
 import Button from './form-components/Button';
 
@@ -26,7 +27,7 @@ export default function SignInForm(): any {
     };
 
     return (
-        <form onSubmit={submitHandler}>
+        <Form onSubmit={submitHandler}>
             <Input
                 type="email"
                 name="email"
@@ -47,6 +48,6 @@ export default function SignInForm(): any {
             <Button>Submit</Button>
 
             {!!error && <div>{error}</div>}
-        </form>
+        </Form>
     );
 }

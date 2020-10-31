@@ -9,7 +9,6 @@ import { UserInterface } from './../../contexts/RoomContext';
 interface RoomTableInterface extends RoomIDInterface {}
 
 export default function RoomTable({ roomID }: RoomTableInterface) {
-    const { uid }: any = auth.currentUser;
     const dbUsers = db.collection('rooms').doc(roomID).collection('users');
 
     const [users, setUsers] = useState([]);

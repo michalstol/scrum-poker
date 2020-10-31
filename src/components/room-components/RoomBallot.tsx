@@ -8,6 +8,8 @@ import { scrumPoints } from './../../helpers/scrum';
 import { RoomIDInterface } from './../../contexts/AppContext';
 import { UserInterface } from './../../contexts/RoomContext';
 
+import Form from './../form-components/Form';
+import FormContent from './../form-components/FormContent';
 import Select from './../form-components/Select';
 import Button from './../form-components/Button';
 
@@ -61,16 +63,18 @@ export default function RoomBallot({ roomID }: RoomBallotInterface) {
     };
 
     return (
-        <form onSubmit={submitHandler}>
-            <Select value={bet} onChange={selectHandler}>
-                {scrumPoints.map(value => (
-                    <option key={`scrum-point-${value}`} value={value}>
-                        {value}
-                    </option>
-                ))}
-            </Select>
+        <Form onSubmit={submitHandler}>
+            <FormContent>
+                <Select value={bet} onChange={selectHandler}>
+                    {scrumPoints.map(value => (
+                        <option key={`scrum-point-${value}`} value={value}>
+                            {value}
+                        </option>
+                    ))}
+                </Select>
+            </FormContent>
 
             <Button>Vote!</Button>
-        </form>
+        </Form>
     );
 }

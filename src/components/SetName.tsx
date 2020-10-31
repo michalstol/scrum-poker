@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { auth } from './../firebase/firebase';
 
 import { UpdateContextInterface } from './../contexts/AppContext';
 
+import Form from './form-components/Form';
 import Input from './form-components/Input';
 import Button from './form-components/Button';
 
@@ -30,7 +31,7 @@ export default function SetName({ updateContext }: UpdateContextInterface) {
     };
 
     return (
-        <form onSubmit={submitHandler}>
+        <Form onSubmit={submitHandler}>
             <Input
                 type="text"
                 name="name"
@@ -41,6 +42,6 @@ export default function SetName({ updateContext }: UpdateContextInterface) {
             />
 
             <Button>Save</Button>
-        </form>
+        </Form>
     );
 }

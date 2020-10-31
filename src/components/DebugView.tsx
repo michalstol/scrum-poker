@@ -2,6 +2,8 @@ import React from 'react';
 
 import { ContextInterface } from './../contexts/AppContext';
 
+import styles from './../styles/debug.module.scss';
+
 export default function DebugView({
     authenticated,
     connected,
@@ -10,7 +12,7 @@ export default function DebugView({
     userName,
 }: ContextInterface): any {
     return (
-        <table>
+        <table className={styles.debug}>
             <thead>
                 <tr>
                     <th>authenticated</th>

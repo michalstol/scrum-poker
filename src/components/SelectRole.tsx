@@ -8,6 +8,7 @@ import {
 } from './../contexts/AppContext';
 import { defaultRoomUser, roles } from './../contexts/RoomContext';
 
+import Form from './form-components/Form';
 import Select from './form-components/Select';
 import Button from './form-components/Button';
 
@@ -45,7 +46,7 @@ export default function SelectRole({
     };
 
     return (
-        <form onSubmit={submitHandler}>
+        <Form onSubmit={submitHandler}>
             <Select value={userRole} onChange={selectHandler}>
                 {roles.map(role => (
                     <option key={`role-option-key-${role}`} value={role}>
@@ -55,6 +56,6 @@ export default function SelectRole({
             </Select>
 
             <Button>Select role</Button>
-        </form>
+        </Form>
     );
 }

@@ -7,6 +7,7 @@ import { scrumPoints } from './../../helpers/scrum';
 
 import { RoomIDInterface } from './../../contexts/AppContext';
 
+import Form from './../form-components/Form';
 import Button from './../form-components/Button';
 
 const resetUserData = {
@@ -42,8 +43,8 @@ export default function RoomReset({ roomID }: RoomIDInterface) {
     };
 
     return (
-        <form onSubmit={submitHandler}>
+        <Form onSubmit={submitHandler}>
             <Button>Reset</Button>
-        </form>
+        </Form>
     );
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import styles from './../../styles/button.module.scss';
+
 interface ButtonInterface {
     children: any;
     type?: 'submit' | 'reset' | 'button';
@@ -12,7 +14,7 @@ export default function Button({
     onClick = () => {},
 }: ButtonInterface): any {
     return (
-        <button type={type} onClick={onClick}>
+        <button type={type} className={styles.button} onClick={onClick}>
             {children}
         </button>
     );

@@ -6,11 +6,14 @@ import { defaultInterface } from './contexts/AppContext';
 
 import Auth from './base/Auth';
 import DebugViews from './components/DebugView';
+// import Intro from './components/Intro';
 import SignInForm from './components/SignInForm';
 import SetName from './components/SetName';
 import SetRoom from './components/SetRoom';
 import SelectRole from './components/SelectRole';
 import Room from './components/Room';
+
+import './styles/app.scss';
 
 function App() {
     const [appState, setAppState] = useState({
@@ -27,10 +30,10 @@ function App() {
 
     return (
         <>
-            <Auth updateContext={updateContext} />
             <DebugViews {...appState} />
 
-            <hr />
+            <Auth updateContext={updateContext} />
+            {/* <Intro connected={connected} /> */}
 
             {!authenticated && connected && <SignInForm />}
             {authenticated && connected && (

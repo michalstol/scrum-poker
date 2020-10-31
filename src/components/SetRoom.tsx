@@ -6,6 +6,7 @@ import { auth, db } from './../firebase/firebase';
 import { UpdateContextInterface } from './../contexts/AppContext';
 import { defaultRoom } from './../contexts/RoomContext';
 
+import Form from './form-components/Form';
 import Input from './form-components/Input';
 import Button from './form-components/Button';
 
@@ -62,7 +63,7 @@ export default function SetRoom({
 
     return (
         <>
-            <form onSubmit={joinRoomHandler}>
+            <Form onSubmit={joinRoomHandler}>
                 <Input
                     type="text"
                     name="room-id"
@@ -72,8 +73,8 @@ export default function SetRoom({
                 />
 
                 <Button>Join!</Button>
-            </form>
-            <form onSubmit={createRoomHandler}>
+            </Form>
+            <Form onSubmit={createRoomHandler}>
                 <Input
                     type="text"
                     name="room-name"
@@ -83,7 +84,7 @@ export default function SetRoom({
                 />
 
                 <Button>Create a room!</Button>
-            </form>
+            </Form>
         </>
     );
 }

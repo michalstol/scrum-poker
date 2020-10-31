@@ -1,5 +1,7 @@
 import React from 'react';
 
+import styles from './../../styles/input.module.scss';
+
 interface InputInterface {
     type: string;
     name: string;
@@ -13,11 +15,14 @@ interface InputInterface {
 }
 
 export default function Input({ setValue, label, ...all }: InputInterface) {
+    const { input, ['input-fieldset']: inputFieldset } = styles;
+
     return (
-        <fieldset>
+        <fieldset className={inputFieldset}>
             {label && <label>{label}</label>}
             <input
                 {...all}
+                className={input}
                 onChange={function (event) {
                     setValue(event.target.value);
                 }}

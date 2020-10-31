@@ -1,0 +1,15 @@
+.debug {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: 12px;
+    text-align: left;
+    border-collapse: collapse;
+    z-index: 9999;
+
+    th,
+    td {
+        border: 1px solid #000;
+    }
+}

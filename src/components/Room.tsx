@@ -12,7 +12,7 @@ interface RoomInterface extends RoomIDInterface, RoleInterface {}
 export default function Room({ roomID, role }: RoomInterface) {
     return (
         <>
-            <RoomTable roomID={roomID} />
+            {/* <RoomTable roomID={roomID} /> */}
 
             {role === 'player' && <RoomBallot roomID={roomID} />}
             {role === 'croupier' && <RoomReset roomID={roomID} />}
