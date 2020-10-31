@@ -43,7 +43,7 @@ function App() {
                             roomID={roomID}
                         />
                     )}
-                    {roomID && role && <Room roomID={roomID} />}
+                    {roomID && role && <Room roomID={roomID} role={role} />}
                 </>
             )}
         </>
