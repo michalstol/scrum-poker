@@ -7,12 +7,14 @@ import { RoleInterface } from './RoomContext';
 export interface AuthInterface {
     authenticated: boolean;
     connected: boolean;
+    userName: string;
 }
 
 export const defaultAuth = {
     authenticated: false,
     connected: false,
-    ...checkCookie(['authenticated']),
+    userName: '',
+    ...checkCookie(['authenticated', 'userName']),
 };
 
 // RoomInterface
@@ -41,12 +43,10 @@ export const defaultUpdateContext = {
 };
 
 // ContextInterface
-export interface ContextInterface {
-    clone(authenticated: AuthInterface): AuthInterface;
-    clone(connected: AuthInterface): AuthInterface;
-    clone(roomID: RoomIDInterface): RoomIDInterface;
-    clone(role: RoleInterface): RoleInterface;
-}
+export interface ContextInterface
+    extends AuthInterface,
+        RoomIDInterface,
+        RoleInterface {}
 
 export const defaultInterface = {
     ...defaultAuth,

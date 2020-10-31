@@ -12,6 +12,7 @@ export default function Auth({ updateContext }: UpdateContextInterface): any {
     useEffect(() => {
         setCookie({
             authenticated: authState.authenticated,
+            userName: authState.userName,
         });
 
         updateContext({
@@ -26,6 +27,7 @@ export default function Auth({ updateContext }: UpdateContextInterface): any {
                 ...authState,
                 connected: true,
                 authenticated: !!user,
+                userName: user?.displayName || '',
             });
         });
     }, [userData.uid]);

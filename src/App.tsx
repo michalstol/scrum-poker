@@ -5,7 +5,9 @@ import { setCookie } from './helpers/cookie';
 import { defaultInterface } from './contexts/AppContext';
 
 import Auth from './base/Auth';
+import DebugViews from './components/DebugView';
 import SignInForm from './components/SignInForm';
+import SetName from './components/SetName';
 import SetRoom from './components/SetRoom';
 import SelectRole from './components/SelectRole';
 import Room from './components/Room';
@@ -21,43 +23,28 @@ function App() {
         updateCookie && setCookie({ ...newState });
     };
 
-    const { authenticated, connected, roomID, role } = appState;
+    const { authenticated, connected, roomID, role, userName } = appState;
 
     return (
         <>
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>authenticated</th>
-                            <th>connected</th>
-                            <th>roomID</th>
-                            <th>role</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{authenticated ? 'true' : 'false'}</td>
-                            <td>{connected ? 'true' : 'false'}</td>
-                            <td>{!!roomID ? roomID : 'null'}</td>
-                            <td>{!!role ? role : 'null'}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <Auth updateContext={updateContext} />
+            <DebugViews {...appState} />
 
             <hr />
 
-            <Auth updateContext={updateContext} />
-            <SignInForm />
-            <SetRoom updateContext={updateContext} />
-
-            {authenticated && connected && roomID && (
-                <SelectRole updateContext={updateContext} roomID={roomID} />
-            )}
-
-            {authenticated && connected && roomID && role && (
-                <Room roomID={roomID} />
+            {!authenticated && connected && <SignInForm />}
+            {authenticated && connected && (
+                <>
+                    {!userName && <SetName updateContext={updateContext} />}
+                    {!roomID && <SetRoom updateContext={updateContext} />}
+                    {roomID && !role && (
+                        <SelectRole
+                            updateContext={updateContext}
+                            roomID={roomID}
+                        />
+                    )}
+                    {roomID && role && <Room roomID={roomID} />}
+                </>
             )}
         </>
     );
