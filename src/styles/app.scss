@@ -1,69 +1,10 @@
 @import './../../node_modules/normalize.css';
-@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;600&display=swap');
 
-:root {
-    // colors variables
-    --color-white: #fff;
-    --color-aqua: #76f7b7;
-    --color-medium-aqua: #5fdd9d;
-    --color-middle-green: #499167;
-    --color-rich-black: #0b0c08;
-
-    --color-bg: var(--color-white);
-    --color-bg-content: var(--color-aqua);
-    --color-content: var(--color-rich-black);
-    --color-content-invert: var(--color-white);
-
-    // fonts
-    font-family: 'Oswald', sans-serif;
-    font-size: 30px;
-
-    // color
-    color: var(--color-content);
-}
-
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
-a,
-input {
-    &:focus {
-        color: currentColor;
-        text-decoration: none;
-    }
-}
-
-a,
-button,
-input {
-    &:focus {
-        outline: none;
-    }
-}
-
-a {
-    color: inherit;
-
-    &:hover {
-        color: currentColor;
-        text-decoration: none;
-    }
-}
-
-img {
-    display: inline-block;
-    max-width: 100%;
-    vertical-align: top;
-    user-select: none;
-}
-
-html,
-body,
-#root {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
+@import './base';
+@import './alert';
+@import './container';
+@import './form';
+@import './fieldset';
+@import './input';
+@import './button';

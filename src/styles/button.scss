@@ -1,0 +1,19 @@
+.button {
+    padding: 3vw 4vw;
+    font-size: 7vw;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--color-content);
+    border: 0;
+    border-radius: 1vw;
+    background: var(--color-gradient);
+    display: block;
+
+    &--distance {
+        margin-top: 10vh;
+
+        &-small {
+            margin-top: 5vw;
+        }
+    }
+}

@@ -6,6 +6,7 @@ import { auth, db } from './../firebase/firebase';
 import { UpdateContextInterface } from './../contexts/AppContext';
 import { defaultRoom } from './../contexts/RoomContext';
 
+import Container from './Container';
 import Form from './form-components/Form';
 import Input from './form-components/Input';
 import Button from './form-components/Button';
@@ -62,29 +63,35 @@ export default function SetRoom({
     };
 
     return (
-        <>
+        <Container flex="end">
             <Form onSubmit={joinRoomHandler}>
                 <Input
                     type="text"
                     name="room-id"
                     placeholder="Put a room ID"
+                    minLength={28}
+                    maxLength={28}
+                    required={true}
                     value={roomID}
                     setValue={setRoomID}
                 />
 
-                <Button>Join!</Button>
+                <Button variation="button--distance-small">Join!</Button>
             </Form>
             <Form onSubmit={createRoomHandler}>
                 <Input
                     type="text"
                     name="room-name"
-                    placeholder="Put a room name"
+                    placeholder="Set a room name"
+                    required={true}
                     value={roomName}
                     setValue={setRoomName}
                 />
 
-                <Button>Create a room!</Button>
+                <Button variation="button--distance-small">
+                    Create a room!
+                </Button>
             </Form>
-        </>
+        </Container>
     );
 }

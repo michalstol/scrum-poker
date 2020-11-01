@@ -4,9 +4,9 @@ import { setCookie } from './helpers/cookie';
 
 import { defaultInterface } from './contexts/AppContext';
 
-import Auth from './base/Auth';
 import DebugViews from './components/DebugView';
-// import Intro from './components/Intro';
+import Auth from './base/Auth';
+import Intro from './components/Intro';
 import SignInForm from './components/SignInForm';
 import SetName from './components/SetName';
 import SetRoom from './components/SetRoom';
@@ -16,6 +16,7 @@ import Room from './components/Room';
 import './styles/app.scss';
 
 function App() {
+    const [page, setPage] = useState(0);
     const [appState, setAppState] = useState({
         ...defaultInterface,
     });
@@ -30,12 +31,36 @@ function App() {
 
     return (
         <>
-            <DebugViews {...appState} />
+            {false && <DebugViews {...appState} />}
 
             <Auth updateContext={updateContext} />
             {/* <Intro connected={connected} /> */}
+            {/* <SignInForm /> */}
+            {/* <SetName updateContext={updateContext} /> */}
+            {/* <SetRoom updateContext={updateContext} /> */}
+            {authenticated && connected && (
+                <SelectRole updateContext={updateContext} roomID={roomID} />
+            )}
 
-            {!authenticated && connected && <SignInForm />}
+            {/* <Page
+                width={'100%'}
+                height={'100%'}
+                // dragEnabled={false}
+                // currentPage={page}
+            >
+                <Frame>
+                    <SignInForm />
+                </Frame>
+                <Frame>
+                    <SetName updateContext={updateContext} />
+                </Frame>
+                <Frame>
+                    <SetRoom updateContext={updateContext} />
+                </Frame>
+                <SelectRole updateContext={updateContext} roomID={roomID} />
+                <Room roomID={roomID} role={role} />
+            </Page> */}
+            {/* {!authenticated && connected && <SignInForm />}
             {authenticated && connected && (
                 <>
                     {!userName && <SetName updateContext={updateContext} />}
@@ -48,7 +73,7 @@ function App() {
                     )}
                     {roomID && role && <Room roomID={roomID} role={role} />}
                 </>
-            )}
+            )} */}
         </>
     );
 }

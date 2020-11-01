@@ -1,20 +1,14 @@
 import React from 'react';
 
-import styles from './../../styles/form.module.scss';
-
 interface FormInterface {
     children: any;
     extraClasses?: string;
     onSubmit: (event: React.FormEvent) => void;
 }
 
-export default function Form({
-    children,
-    extraClasses,
-    onSubmit,
-}: FormInterface): any {
+export default function Form({ children, onSubmit }: FormInterface): any {
     return (
-        <form onSubmit={onSubmit} className={`${styles.form} ${extraClasses}`}>
+        <form onSubmit={onSubmit} className="form">
             {children}
         </form>
     );
