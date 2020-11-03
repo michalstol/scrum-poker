@@ -8,7 +8,7 @@ import DebugViews from './components/DebugView';
 import Auth from './base/Auth';
 import Intro from './components/Intro';
 import SignInForm from './components/SignInForm';
-import SetName from './components/SetName';
+import SetNameAndPassword from './components/SetNameAndPassword';
 import SetRoom from './components/SetRoom';
 import SelectRole from './components/SelectRole';
 import Room from './components/Room';
@@ -35,10 +35,10 @@ function App() {
 
             <Auth updateContext={updateContext} />
             {/* <Intro connected={connected} /> */}
-            {/* <SignInForm /> */}
-            {/* <SetName updateContext={updateContext} /> */}
+            {!authenticated && connected && <SignInForm />}
+            {/* <SetNameAndPassword updateContext={updateContext} /> */}
             {/* <SetRoom updateContext={updateContext} /> */}
-            {authenticated && connected && (
+            {authenticated && connected && roomID && (
                 <SelectRole updateContext={updateContext} roomID={roomID} />
             )}
 
