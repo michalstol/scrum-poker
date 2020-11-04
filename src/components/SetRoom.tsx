@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-// import { FirebaseAuth } from '@firebase/auth-types';
+import firebase from 'firebase';
 
 import { auth, db } from './../firebase/firebase';
 
 import { UpdateContextInterface } from './../contexts/AppContext';
 import { defaultRoom } from './../contexts/RoomContext';
 
+import Alert from './Alert';
 import Container from './Container';
+import Header from './Header';
+import Distance from './Distance';
 import Form from './form-components/Form';
 import Input from './form-components/Input';
 import Button from './form-components/Button';
@@ -15,38 +18,65 @@ export default function SetRoom({
     updateContext,
 }: UpdateContextInterface): any {
     const dbRooms = db.collection('rooms');
-    const [roomID, setRoomID] = useState('');
-    const [roomName, setRoomName] = useState('');
+    const [tab, setTab] = useState(0);
+    const [content, setContent] = useState('');
+    const [error, setError] = useState('');
 
-    const joinRoomHandler = (event: React.SyntheticEvent): void => {
+    const switchTab = (id: number) => {
+        if (id === tab) return;
+
+        setTab(id);
+        setContent('');
+    };
+
+    const submitHandler = (event: React.SyntheticEvent): void => {
         event.preventDefault();
 
+        if (!content) return;
+
+        switch (tab) {
+            case 0:
+                jointHandler();
+                break;
+            case 1:
+                createHandler();
+                break;
+            default:
+                console.warn(
+                    `SetRoom - {tab: ${tab}} is different than 0 or 1`
+                );
+        }
+    };
+
+    const jointHandler = () => {
+        if (content.length !== 28) return;
+
         dbRooms
-            .doc(roomID)
+            .doc(content)
             .get()
             .then(doc => {
                 if (!doc.exists) return;
 
                 updateContext(
                     {
-                        roomID,
+                        roomID: content,
                     },
                     true
                 );
             })
-            .catch(error => console.log(error));
+            .catch((fError: firebase.firestore.FirestoreError) =>
+                setError(fError.message)
+            );
     };
+    const createHandler = () => {
+        if (content.length < 3) return;
 
-    const createRoomHandler = (event: React.SyntheticEvent): void => {
-        event.preventDefault();
-
-        // typescript FirebaseAuth from @firebase/auth-types
         const { uid }: any = auth.currentUser;
 
         dbRooms
             .add({
                 ...defaultRoom,
-                name: roomName,
+                name: content,
                 admin: uid,
                 users: [],
             })
@@ -59,37 +89,76 @@ export default function SetRoom({
                     },
                     true
                 );
-            });
+            })
+            .catch((fError: firebase.firestore.FirestoreError) =>
+                setError(fError.message)
+            );
     };
 
     return (
-        <Container flex="end">
-            <Form onSubmit={joinRoomHandler}>
-                <Input
-                    type="text"
-                    name="room-id"
-                    placeholder="Put a room ID"
-                    minLength={28}
-                    maxLength={28}
-                    required={true}
-                    value={roomID}
-                    setValue={setRoomID}
+        <Container
+            flex="end"
+            classes={`set-room ${tab === 1 ? 'set-room--revers' : ''}`}
+        >
+            <Alert type="error" content={error} setAlert={setError} />
+
+            <Header
+                title="You can join an existing room or create a new one."
+                subtitle="Select your room!"
+            />
+
+            <Form onSubmit={submitHandler}>
+                {tab === 0 ? (
+                    <Input
+                        type="text"
+                        name="room-id"
+                        placeholder="Put a room ID"
+                        minLength={28}
+                        maxLength={28}
+                        required={true}
+                        value={content}
+                        setValue={setContent}
+                    />
+                ) : (
+                    <Input
+                        type="text"
+                        name="room-name"
+                        placeholder="Set a room name"
+                        minLength={3}
+                        required={true}
+                        value={content}
+                        setValue={setContent}
+                    />
+                )}
+
+                <Distance style={{ height: '45px' }} />
+
+                <Button
+                    type={tab === 0 ? 'submit' : 'button'}
+                    variation={tab !== 0 ? 'button--secondary' : ''}
+                    onClick={(event: React.SyntheticEvent) => {
+                        tab !== 0 && event.preventDefault();
+                        switchTab(0);
+                    }}
+                >
+                    Join
+                </Button>
+
+                <Distance
+                    classes="set-room__distance"
+                    content="or"
+                    style={{ height: '21px', marginTop: '6px' }}
                 />
 
-                <Button variation="button--distance-small">Join!</Button>
-            </Form>
-            <Form onSubmit={createRoomHandler}>
-                <Input
-                    type="text"
-                    name="room-name"
-                    placeholder="Set a room name"
-                    required={true}
-                    value={roomName}
-                    setValue={setRoomName}
-                />
-
-                <Button variation="button--distance-small">
-                    Create a room!
+                <Button
+                    type={tab === 1 ? 'submit' : 'button'}
+                    variation={tab !== 1 ? 'button--secondary' : ''}
+                    onClick={(event: React.SyntheticEvent) => {
+                        tab !== 1 && event.preventDefault();
+                        switchTab(1);
+                    }}
+                >
+                    Create new
                 </Button>
             </Form>
         </Container>

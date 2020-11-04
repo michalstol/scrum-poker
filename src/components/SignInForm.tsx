@@ -33,7 +33,7 @@ export default function SignInForm(): any {
     return (
         <>
             <Container flex="end">
-                <Alert type="error" content={error} setError={setError} />
+                <Alert type="error" content={error} setAlert={setError} />
 
                 <Header
                     title="Let's play scrum poker remotely with our team."

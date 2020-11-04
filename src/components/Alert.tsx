@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface AlertInterface {
     type: 'error';
     content?: string;
-    setError: React.Dispatch<React.SetStateAction<string>>;
+    setAlert: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const alertTypes = {
@@ -13,7 +13,7 @@ const alertTypes = {
     },
 };
 
-export default function Alert({ type, content, setError }: AlertInterface) {
+export default function Alert({ type, content, setAlert }: AlertInterface) {
     const [visible, setVisible] = useState(!!content);
     const [alertContent, setAlertContent] = useState(content || '');
 
@@ -31,7 +31,7 @@ export default function Alert({ type, content, setError }: AlertInterface) {
             timeout &&
                 setTimeout(() => {
                     setVisible(false);
-                    setError('');
+                    setAlert('');
                 }, timeout);
         }
     }, [visible]);

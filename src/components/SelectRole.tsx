@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import firebase from 'firebase';
 
 import { auth, db } from './../firebase/firebase';
 
@@ -8,10 +9,10 @@ import {
 } from './../contexts/AppContext';
 import { defaultRoomUser, roles } from './../contexts/RoomContext';
 
+import Alert from './Alert';
 import Container from './Container';
+import Header from './Header';
 import Form from './form-components/Form';
-import Checkbox from './form-components/Checkbox';
-import Fieldset from './form-components/Fieldset';
 import Button from './form-components/Button';
 
 interface SelectRoleInterface extends UpdateContextInterface, RoomIDInterface {}
@@ -20,13 +21,14 @@ export default function SelectRole({
     updateContext,
     roomID,
 }: SelectRoleInterface): any {
-    const [userRole, setUserRole] = useState(roles[0]);
-
     const { uid, displayName }: any = auth.currentUser;
     const dbRoom = db.collection('rooms').doc(roomID).collection('users');
+    const [userRole, setUserRole] = useState('');
+    const [error, setError] = useState('');
 
-    const submitHandler = (event: React.SyntheticEvent) => {
-        event.preventDefault();
+    useEffect(() => {
+        if (!uid) return;
+        if (!userRole && roles.indexOf(userRole) === -1) return;
 
         const newRole = { role: userRole };
 
@@ -40,25 +42,43 @@ export default function SelectRole({
             })
             .then(() => {
                 updateContext({ ...newRole }, true);
-            });
+            })
+            .catch((fError: firebase.firestore.FirestoreError) =>
+                setError(fError.message)
+            );
+    }, [userRole]);
+
+    const submitHandler = (event: React.SyntheticEvent) => {
+        event.preventDefault();
+    };
+
+    const selectRoleHandler = (role: string) => {
+        if (role === userRole) return;
+
+        setUserRole(role);
     };
 
     return (
         <Container flex="end">
-            <Form onSubmit={submitHandler}>
-                <Fieldset>
-                    {roles.map((role, index) => (
-                        <Checkbox
-                            key={`role-option-key-${index}`}
-                            value={role}
-                            label={role}
-                            setValue={setUserRole}
-                            selected={role === userRole}
-                        />
-                    ))}
-                </Fieldset>
+            <Alert type="error" content={error} setAlert={setError} />
 
-                <Button variation="button--distance">Select role</Button>
+            <Header
+                title="Select your role for the next game."
+                subtitle="Last step!"
+            />
+
+            <Form onSubmit={submitHandler}>
+                {roles.map((role, index) => (
+                    <Button
+                        key={`select-role-${index}`}
+                        type="button"
+                        active={role === userRole}
+                        variation="button--distance-small"
+                        onClick={() => selectRoleHandler(role)}
+                    >
+                        {role}
+                    </Button>
+                ))}
             </Form>
         </Container>
     );

@@ -8,7 +8,7 @@ interface FormInterface {
 
 export default function Form({
     children,
-    classes,
+    classes = '',
     onSubmit,
 }: FormInterface): any {
     return (

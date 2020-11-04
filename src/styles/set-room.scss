@@ -1,0 +1,9 @@
+.set-room {
+    $root: &;
+
+    &__distance {
+        height: 21px;
+        margin-top: 6px;
+        opacity: 0.6;
+    }
+}

@@ -34,12 +34,15 @@ function App() {
             {false && <DebugViews {...appState} />}
 
             <Auth updateContext={updateContext} />
-            <Intro connected={connected} />
+            {/* <Intro connected={connected} /> */}
             {/* <SignInForm /> */}
-            {/* {!authenticated && connected && <SignInForm />} */}
+            {!authenticated && connected && <SignInForm />}
+            {authenticated && connected && roomID && role && (
+                <Room roomID={roomID} role={role} />
+            )}
             {/* <SetNameAndPassword updateContext={updateContext} /> */}
-            {/* <SetRoom updateContext={updateContext} /> */}
-            {/* {authenticated && connected && roomID && (
+            {/* {!roomID && <SetRoom updateContext={updateContext} />}
+            {authenticated && connected && roomID && (
                 <SelectRole updateContext={updateContext} roomID={roomID} />
             )} */}
 

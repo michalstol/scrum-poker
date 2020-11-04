@@ -6,6 +6,7 @@ import { UpdateContextInterface } from '../contexts/AppContext';
 
 import Alert from './Alert';
 import Container from './Container';
+import Header from './Header';
 import Form from './form-components/Form';
 import Input from './form-components/Input';
 import Button from './form-components/Button';
@@ -63,7 +64,12 @@ export default function SetNameAndPassword({
 
     return (
         <Container flex="end">
-            <Alert type="error" content={error} setError={setError} />
+            <Alert type="error" content={error} setAlert={setError} />
+
+            <Header
+                title="You first time here! Please, set your name and a new password."
+                subtitle="The new one!"
+            />
 
             <Form onSubmit={submitHandler}>
                 <Input

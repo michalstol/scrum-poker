@@ -1,0 +1,11 @@
+.distance {
+    width: 100%;
+    display: flex;
+    align-content: center;
+
+    &-content {
+        width: 100%;
+        text-align: center;
+        flex: 0 0 auto;
+    }
+}

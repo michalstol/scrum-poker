@@ -3,6 +3,7 @@
     $border: var(--color-black);
     $bg: var(--color-bg);
 
+    width: 100%;
     height: $height;
     font-size: 18px;
     font-weight: 500;
@@ -13,7 +14,7 @@
     background-color: $bg;
     display: block;
 
-    &:hover,
+    &:active,
     &.active {
         color: $bg;
         background-color: $border;
@@ -24,6 +25,18 @@
 
         &-small {
             margin-top: 20px;
+        }
+    }
+
+    &--secondary {
+        border-color: $bg;
+        opacity: 0.6;
+
+        &:active,
+        &.active {
+            color: $border;
+            border-color: $border;
+            background-color: $bg;
         }
     }
 }

@@ -3,7 +3,13 @@ import React from 'react';
 interface ButtonInterface {
     children: any;
     type?: 'submit' | 'reset' | 'button';
-    variation?: 'button--distance' | 'button--distance-small';
+    active?: boolean;
+    variation?:
+        | ''
+        | 'active'
+        | 'button--distance'
+        | 'button--distance-small'
+        | 'button--secondary';
     disabled?: boolean;
     onClick?: (event: React.FormEvent) => void;
 }
@@ -11,6 +17,7 @@ interface ButtonInterface {
 export default function Button({
     children,
     type = 'submit',
+    active,
     variation,
     disabled,
     onClick = () => {},
@@ -18,7 +25,7 @@ export default function Button({
     return (
         <button
             type={type}
-            className={`button ${variation}`}
+            className={`button ${variation} ${active ? 'active' : ''}`}
             onClick={onClick}
             disabled={disabled}
         >
