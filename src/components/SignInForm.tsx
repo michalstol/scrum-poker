@@ -6,6 +6,7 @@ import { auth } from '../firebase/firebase';
 
 import Alert from './Alert';
 import Container from './Container';
+import Header from './Header';
 import Form from './form-components/Form';
 import Input from './form-components/Input';
 import Button from './form-components/Button';
@@ -18,7 +19,7 @@ export default function SignInForm(): any {
     const submitHandler = (event: React.SyntheticEvent): void => {
         event.preventDefault();
 
-        auth.signInWithEmailAndPassword(email, password)
+        auth.signInWithEmailAndPassword(email.toLocaleLowerCase(), password)
             .then(() => {
                 setEmail('');
                 setPassword('');
@@ -33,6 +34,11 @@ export default function SignInForm(): any {
         <>
             <Container flex="end">
                 <Alert type="error" content={error} setError={setError} />
+
+                <Header
+                    title="Let's play scrum poker remotely with our team."
+                    subtitle="Welcome!"
+                />
 
                 <Form onSubmit={submitHandler}>
                     <Input

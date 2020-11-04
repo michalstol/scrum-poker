@@ -1,0 +1,17 @@
+:root {
+    // colors variables
+    --color-white: #fff;
+    --color-black: #272727;
+    --color-red: #ac1a1a;
+
+    --color-bg: var(--color-white);
+    --color-bg-active: var(--color-black);
+    --color-content: var(--color-black);
+    --color-content-active: var(--color-white);
+
+    --color-error: linear-gradient(
+        45deg,
+        rgba(163, 40, 55, 1) 0%,
+        rgba(245, 59, 59, 1) 100%
+    );
+}

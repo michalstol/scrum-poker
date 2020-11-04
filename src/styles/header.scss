@@ -1,0 +1,17 @@
+.header {
+    $root: &;
+    padding-top: 70px;
+    flex: 1 0 auto;
+
+    &-subtitle {
+        font-size: 18px;
+    }
+
+    &-title {
+        font-size: 24px;
+
+        #{$root}-subtitle + & {
+            margin-top: 25px;
+        }
+    }
+}

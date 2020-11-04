@@ -1,43 +1,45 @@
 .input {
     $root: &;
+    $font-size: 16px;
+    $height: 19px;
 
     max-width: none;
     width: 100%;
+    height: $height;
     margin: 0;
     padding: 0;
-    font-size: 6vw;
-    font-weight: 600;
-    line-height: 1;
-    text-align: center;
+    font-size: $font-size;
+    line-height: $height;
+    text-align: left;
     border: none;
     border-radius: 0;
     background-color: transparent;
-    background: var(--color-gradient-bg);
-    background: var(--color-gradient);
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    display: block;
 
     &::placeholder {
-        font-weight: 400;
         color: currentColor;
-        opacity: 1;
+        opacity: 0.8;
     }
 
     &[type='password'] {
-        font-weight: 800;
+        font-size: 24px;
+
+        &::placeholder {
+            font-size: $font-size;
+        }
     }
 
     &-border {
         height: 1px;
-        margin-top: 0.5vw;
-        background: var(--color-gradient-bg);
-        background: var(--color-gradient);
-        transform: scaleX(0.1);
-        transition: transform 300ms ease-in-out;
-        opacity: 0.6;
+        margin-top: 3px;
+        transform: scaleX(0);
+        transform-origin: left;
+        background-color: var(--color-black);
+        opacity: 0.4;
+        display: block;
 
         #{$root}:not(:placeholder-shown) + & {
-            transform: scaleX(0.5);
+            transform: scaleX(1);
         }
     }
 }

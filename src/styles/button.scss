@@ -1,19 +1,29 @@
 .button {
-    padding: 3vw 4vw;
-    font-size: 7vw;
-    font-weight: 400;
-    line-height: 1;
-    color: var(--color-content);
-    border: 0;
-    border-radius: 1vw;
-    background: var(--color-gradient);
+    $height: 38px;
+    $border: var(--color-black);
+    $bg: var(--color-bg);
+
+    height: $height;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 0;
+    text-transform: uppercase;
+    border: 1px solid $border;
+    border-radius: $height / 2;
+    background-color: $bg;
     display: block;
 
+    &:hover,
+    &.active {
+        color: $bg;
+        background-color: $border;
+    }
+
     &--distance {
-        margin-top: 10vh;
+        margin-top: 45px;
 
         &-small {
-            margin-top: 5vw;
+            margin-top: 20px;
         }
     }
 }

@@ -30,7 +30,7 @@ export default function Intro({ connected }: any): any {
                         },
                     }}
                     exit={{
-                        scale: [1, 1.2, 0],
+                        opacity: [1, 0],
                         transition: {
                             duration: 1,
                             ease: 'backIn',
