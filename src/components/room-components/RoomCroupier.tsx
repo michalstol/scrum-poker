@@ -9,6 +9,7 @@ import { RoomIDInterface } from '../../contexts/AppContext';
 
 import Alert from './../Alert';
 import Container from './../Container';
+import Header from './../Header';
 import RoomTable from './RoomTable';
 import Form from '../form-components/Form';
 import Button from '../form-components/Button';
@@ -20,11 +21,12 @@ const resetUserData = {
 
 export default function RoomCroupier({ roomID }: RoomIDInterface) {
     const dbUsers = db.collection('rooms').doc(roomID).collection('users');
+    const [reset, setReset] = useState(false);
     const [usersIDs, setUsersIDs] = useState([]);
     const [error, setError] = useState('');
 
     useEffect(() => {
-        if (usersIDs.length) return;
+        if (!usersIDs.length) return;
 
         const batch = db.batch();
 
@@ -36,17 +38,27 @@ export default function RoomCroupier({ roomID }: RoomIDInterface) {
             .commit()
             .catch((fError: firestore.FirestoreError) =>
                 setError(fError.message)
-            );
+            )
+            .finally(() => setReset(false));
     }, [usersIDs]);
 
-    const submitHandler = (event: React.SyntheticEvent) => {
-        event.preventDefault();
+    useEffect(() => {
+        if (!reset) return;
 
         dbUsers
             .where('voted', '==', true)
             .get()
             .then((snap: firestore.QuerySnapshot) => {
                 const ids: any = [];
+
+                if (!snap.size) {
+                    setReset(false);
+                    setError(
+                        `Unfortunately, no one voted, so there's no need to reset.`
+                    );
+
+                    return;
+                }
 
                 snap.forEach((doc: firestore.DocumentSnapshot) => {
                     if (doc.exists) ids.push(doc.id);
@@ -56,14 +68,24 @@ export default function RoomCroupier({ roomID }: RoomIDInterface) {
             })
             .catch((fError: firestore.FirestoreError) => {
                 setError(fError.message);
-                return [];
             });
+    }, [reset]);
+
+    const submitHandler = (event: React.SyntheticEvent) => {
+        event.preventDefault();
+
+        setReset(true);
     };
 
     return (
         <Container flex="end">
+            <Alert type="error" content={error} setAlert={setError} />
+
+            <Header variant="header--flex-shrink" subtitle="Voting results:" />
+            <RoomTable roomID={roomID} />
+
             <Form onSubmit={submitHandler}>
-                <Button>Reset</Button>
+                <Button disabled={reset}>Reset</Button>
             </Form>
         </Container>
     );

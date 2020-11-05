@@ -20,6 +20,12 @@
         background-color: $border;
     }
 
+    &:disabled {
+        color: $border;
+        background-color: $bg;
+        opacity: 0.3;
+    }
+
     &--distance {
         margin-top: 45px;
 

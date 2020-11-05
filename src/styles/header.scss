@@ -3,6 +3,10 @@
     padding-top: 70px;
     flex: 1 0 auto;
 
+    &--flex-shrink {
+        flex: 0 0 auto;
+    }
+
     &-subtitle {
         font-size: 18px;
     }

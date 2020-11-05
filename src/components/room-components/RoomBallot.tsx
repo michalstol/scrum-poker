@@ -12,9 +12,7 @@ import Form from './../form-components/Form';
 import Select from './../form-components/Select';
 import Button from './../form-components/Button';
 
-interface RoomBallotInterface extends RoomIDInterface {}
-
-export default function RoomBallot({ roomID }: RoomBallotInterface) {
+export default function RoomBallot({ roomID }: RoomIDInterface) {
     const { uid }: any = auth.currentUser;
     const dbCurrentUser = db
         .collection('rooms')

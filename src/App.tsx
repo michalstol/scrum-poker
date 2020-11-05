@@ -41,8 +41,8 @@ function App() {
                 <Room roomID={roomID} role={role} />
             )}
             {/* <SetNameAndPassword updateContext={updateContext} /> */}
-            {/* {!roomID && <SetRoom updateContext={updateContext} />}
-            {authenticated && connected && roomID && (
+            {/* {!roomID && <SetRoom updateContext={updateContext} />} */}
+            {/* {authenticated && connected && roomID && (
                 <SelectRole updateContext={updateContext} roomID={roomID} />
             )} */}
 

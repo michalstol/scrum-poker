@@ -49,7 +49,7 @@ export default function SetRoom({
     };
 
     const jointHandler = () => {
-        if (content.length !== 28) return;
+        if (content.length !== 20) return;
 
         dbRooms
             .doc(content)
@@ -113,8 +113,8 @@ export default function SetRoom({
                         type="text"
                         name="room-id"
                         placeholder="Put a room ID"
-                        minLength={28}
-                        maxLength={28}
+                        minLength={20}
+                        maxLength={20}
                         required={true}
                         value={content}
                         setValue={setContent}

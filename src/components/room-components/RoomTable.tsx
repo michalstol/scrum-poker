@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { firestore } from 'firebase';
 
-import { auth, db } from './../../firebase/firebase';
+import { db } from './../../firebase/firebase';
 
 import { RoomIDInterface } from './../../contexts/AppContext';
 import { UserInterface } from './../../contexts/RoomContext';
 
 import Alert from './../Alert';
-import Container from './../Container';
-import Header from './../Header';
 
-interface RoomTableInterface extends RoomIDInterface {}
+function RecordElement({ voted, name, bet }: UserInterface) {
+    return (
+        <li className={`room-table__el ${!voted ? 'voting' : ''}`}>
+            <div className="room-table__el-name">{name}</div>
+            <div className="room-table__el-bet">
+                {voted ? bet : '...voiting'}
+            </div>
+        </li>
+    );
+}
 
-export default function RoomTable({ roomID }: RoomTableInterface) {
+export default function RoomTable({ roomID }: RoomIDInterface) {
     const dbUsers = db.collection('rooms').doc(roomID).collection('users');
 
     const [users, setUsers] = useState([]);
@@ -37,30 +44,29 @@ export default function RoomTable({ roomID }: RoomTableInterface) {
     }, []);
 
     return (
-        <Container classes="room-table">
+        <>
             <Alert type="error" content={error} setAlert={setError} />
 
-            <Header subtitle="Voting results:" />
-
-            <div className="room-table__container">
+            <div className="room-table">
                 <ul className="room-table__list">
-                    {users.map((record: UserInterface, index) => (
-                        <li
-                            key={`room-table-user-${index}`}
-                            className={`room-table__el ${
-                                !record.voted ? 'voting' : ''
-                            }`}
-                        >
-                            <div className="room-table__el-name">
-                                {record.name}
-                            </div>
-                            <div className="room-table__el-bet">
-                                {record.voted ? record.bet : '...voiting'}
-                            </div>
-                        </li>
-                    ))}
+                    {users
+                        .filter((record: UserInterface) => !!record.voted)
+                        .map((record, index) => (
+                            <RecordElement
+                                key={`room-table-voted-${index}`}
+                                {...record}
+                            />
+                        ))}
+                    {users
+                        .filter((record: UserInterface) => !record.voted)
+                        .map((record, index) => (
+                            <RecordElement
+                                key={`room-table-voting-${index}`}
+                                {...record}
+                            />
+                        ))}
                 </ul>
             </div>
-        </Container>
+        </>
     );
 }
