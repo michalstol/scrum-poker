@@ -9,7 +9,6 @@ import { RoomIDInterface } from '../../contexts/AppContext';
 
 import Alert from './../Alert';
 import Container from './../Container';
-import Header from './../Header';
 import RoomTable from './RoomTable';
 import Form from '../form-components/Form';
 import Button from '../form-components/Button';
@@ -81,7 +80,6 @@ export default function RoomCroupier({ roomID }: RoomIDInterface) {
         <Container flex="end">
             <Alert type="error" content={error} setAlert={setError} />
 
-            <Header variant="header--flex-shrink" subtitle="Voting results:" />
             <RoomTable roomID={roomID} />
 
             <Form onSubmit={submitHandler}>

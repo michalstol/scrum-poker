@@ -7,6 +7,7 @@ import { RoomIDInterface } from './../../contexts/AppContext';
 import { UserInterface } from './../../contexts/RoomContext';
 
 import Alert from './../Alert';
+import Header from './../Header';
 
 function RecordElement({ voted, name, bet }: UserInterface) {
     return (
@@ -26,8 +27,9 @@ export default function RoomTable({ roomID }: RoomIDInterface) {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        const dbConnection = dbUsers.onSnapshot(
-            (snap: firestore.QuerySnapshot) => {
+        const dbConnection = dbUsers
+            .where('role', '==', 'player')
+            .onSnapshot((snap: firestore.QuerySnapshot) => {
                 const updatePlayers: any = [];
 
                 snap.forEach((doc: firestore.DocumentSnapshot) => {
@@ -37,8 +39,7 @@ export default function RoomTable({ roomID }: RoomIDInterface) {
                 });
 
                 setUsers(updatePlayers);
-            }
-        );
+            });
 
         return dbConnection;
     }, []);
@@ -46,6 +47,12 @@ export default function RoomTable({ roomID }: RoomIDInterface) {
     return (
         <>
             <Alert type="error" content={error} setAlert={setError} />
+
+            <Header
+                variant="header--flex-shrink"
+                subtitle={'The "Pictet" room.'}
+                title="Voting results:"
+            />
 
             <div className="room-table">
                 <ul className="room-table__list">

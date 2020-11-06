@@ -34,17 +34,6 @@ function App() {
             {false && <DebugViews {...appState} />}
 
             <Auth updateContext={updateContext} />
-            {/* <Intro connected={connected} /> */}
-            {/* <SignInForm /> */}
-            {!authenticated && connected && <SignInForm />}
-            {authenticated && connected && roomID && role && (
-                <Room roomID={roomID} role={role} />
-            )}
-            {/* <SetNameAndPassword updateContext={updateContext} /> */}
-            {/* {!roomID && <SetRoom updateContext={updateContext} />} */}
-            {/* {authenticated && connected && roomID && (
-                <SelectRole updateContext={updateContext} roomID={roomID} />
-            )} */}
 
             {/* <Page
                 width={'100%'}
@@ -64,10 +53,13 @@ function App() {
                 <SelectRole updateContext={updateContext} roomID={roomID} />
                 <Room roomID={roomID} role={role} />
             </Page> */}
-            {/* {!authenticated && connected && <SignInForm />}
+            {!connected && <Intro connected={connected} />}
+            {!authenticated && connected && <SignInForm />}
             {authenticated && connected && (
                 <>
-                    {!userName && <SetName updateContext={updateContext} />}
+                    {!userName && (
+                        <SetNameAndPassword updateContext={updateContext} />
+                    )}
                     {!roomID && <SetRoom updateContext={updateContext} />}
                     {roomID && !role && (
                         <SelectRole
@@ -77,7 +69,7 @@ function App() {
                     )}
                     {roomID && role && <Room roomID={roomID} role={role} />}
                 </>
-            )} */}
+            )}
         </>
     );
 }

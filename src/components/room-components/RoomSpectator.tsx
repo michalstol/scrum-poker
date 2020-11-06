@@ -9,7 +9,6 @@ import RoomTable from './RoomTable';
 export default function RoomSpectator({ roomID }: RoomIDInterface) {
     return (
         <Container>
-            <Header variant="header--flex-shrink" subtitle="Voting results:" />
             <RoomTable roomID={roomID} />
         </Container>
     );
