@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { firestore } from 'firebase';
 
-import { auth, db } from './../../firebase/firebase';
+import { auth, db } from '../../firebase/firebase';
 
-import { scrumPoints } from './../../helpers/scrum';
+import { scrumPoints } from '../../helpers/scrum';
 
-import { RoomIDInterface } from './../../contexts/AppContext';
-import { UserInterface } from './../../contexts/RoomContext';
+import { RoomIDInterface } from '../../contexts/AppContext';
+import { UserInterface } from '../../contexts/RoomContext';
 
-import Form from './../form-components/Form';
-import Select from './../form-components/Select';
-import Button from './../form-components/Button';
+import Form from '../form-components/Form';
+import Select from '../form-components/Select';
+import Button from '../form-components/Button';
 
-export default function RoomBallot({ roomID }: RoomIDInterface) {
+export default function RoomPlayer({ roomID }: RoomIDInterface) {
     const { uid }: any = auth.currentUser;
     const dbCurrentUser = db
         .collection('rooms')

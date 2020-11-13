@@ -14,7 +14,7 @@
     background-color: $bg;
     display: block;
 
-    &:active,
+    // &:active,
     &.active {
         color: $bg;
         background-color: $border;
@@ -38,7 +38,7 @@
         border-color: $bg;
         opacity: 0.6;
 
-        &:active,
+        // &:active,
         &.active {
             color: $border;
             border-color: $border;

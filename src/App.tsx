@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { setCookie } from './helpers/cookie';
 
-import { defaultInterface } from './contexts/AppContext';
+import { defaultInterface, ContextInterface } from './contexts/AppContext';
 
 import DebugViews from './components/DebugView';
 import Auth from './base/Auth';
+import PageWrapper from './components/PageWrapper';
 import Intro from './components/Intro';
 import SignInForm from './components/SignInForm';
 import SetNameAndPassword from './components/SetNameAndPassword';
@@ -15,11 +16,32 @@ import Room from './components/Room';
 
 import './styles/app.scss';
 
+function router({
+    authenticated,
+    connected,
+    roomID,
+    role,
+    userName,
+}: ContextInterface) {
+    if (!connected) return 'connecting';
+    if (!authenticated && connected) return 'sign-in';
+
+    if (authenticated && connected) {
+        if (!userName) return 'reset-user';
+        if (!roomID) return 'select-room';
+        if (!role) return 'select-role';
+
+        return 'room';
+    }
+
+    console.warn('Router -- problem with select page');
+}
+
 function App() {
-    const [page, setPage] = useState(0);
     const [appState, setAppState] = useState({
         ...defaultInterface,
     });
+    const [page, setPage] = useState(router(appState));
 
     const updateContext = (newState: any, updateCookie?: boolean): any => {
         setAppState({ ...appState, ...newState });
@@ -27,7 +49,11 @@ function App() {
         updateCookie && setCookie({ ...newState });
     };
 
-    const { authenticated, connected, roomID, role, userName } = appState;
+    useEffect(() => {
+        setPage(router(appState));
+    }, [appState]);
+
+    const { roomID, role } = appState;
 
     return (
         <>
@@ -35,41 +61,34 @@ function App() {
 
             <Auth updateContext={updateContext} />
 
-            {/* <Page
-                width={'100%'}
-                height={'100%'}
-                // dragEnabled={false}
-                // currentPage={page}
+            <PageWrapper
+                render={page === 'connecting'}
+                opacity={1}
+                delay={0.5}
+                zIndex={9999}
             >
-                <Frame>
-                    <SignInForm />
-                </Frame>
-                <Frame>
-                    <SetName updateContext={updateContext} />
-                </Frame>
-                <Frame>
-                    <SetRoom updateContext={updateContext} />
-                </Frame>
+                <Intro />
+            </PageWrapper>
+
+            <PageWrapper render={page === 'sign-in'}>
+                <SignInForm />
+            </PageWrapper>
+
+            <PageWrapper render={page === 'reset-user'}>
+                <SetNameAndPassword updateContext={updateContext} />
+            </PageWrapper>
+
+            <PageWrapper render={page === 'select-room'}>
+                <SetRoom updateContext={updateContext} />
+            </PageWrapper>
+
+            <PageWrapper render={page === 'select-role'}>
                 <SelectRole updateContext={updateContext} roomID={roomID} />
+            </PageWrapper>
+
+            <PageWrapper render={page === 'room'}>
                 <Room roomID={roomID} role={role} />
-            </Page> */}
-            {!connected && <Intro connected={connected} />}
-            {!authenticated && connected && <SignInForm />}
-            {authenticated && connected && (
-                <>
-                    {!userName && (
-                        <SetNameAndPassword updateContext={updateContext} />
-                    )}
-                    {!roomID && <SetRoom updateContext={updateContext} />}
-                    {roomID && !role && (
-                        <SelectRole
-                            updateContext={updateContext}
-                            roomID={roomID}
-                        />
-                    )}
-                    {roomID && role && <Room roomID={roomID} role={role} />}
-                </>
-            )}
+            </PageWrapper>
         </>
     );
 }
