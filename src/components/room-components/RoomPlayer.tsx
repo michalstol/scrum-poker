@@ -68,7 +68,7 @@ export default function RoomPlayer({
             currentPage={voted ? 0 : 1}
             contentHeight="stretch"
             direction="vertical"
-            defaultEffect="pile"
+            // defaultEffect="pile"
         >
             <Frame backgroundColor="transparent">
                 <Container flex="end">
@@ -87,18 +87,18 @@ export default function RoomPlayer({
                         momentum
                         gap={31}
                         dragEnabled={!voted}
-                        defaultEffect="pile"
+                        // defaultEffect="pile"
                         onChangePage={index => setBet(scrumPoints[index])}
                     >
                         {scrumPoints.map((amount, index) => (
                             <Frame
                                 key={`balot-id-${index}`}
-                                animate={{
-                                    translateX: [`-${index}00%`, '0%'],
-                                    transition: {
-                                        delay: 1,
-                                    },
-                                }}
+                                // animate={{
+                                //     translateX: [`-${index}00%`, '0%'],
+                                //     transition: {
+                                //         delay: 1,
+                                //     },
+                                // }}
                                 backgroundColor="transparent"
                             >
                                 <Card points={amount} />
