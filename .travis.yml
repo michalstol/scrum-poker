@@ -9,4 +9,4 @@ install:
 script:
     - CI=false npm run build
 after_success:
-    - firebase deploy --token "$FIREBASE_TOKEN"
+    - firebase hosting:channel:deploy master-preview --token "$FIREBASE_TOKEN"
