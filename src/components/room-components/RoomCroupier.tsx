@@ -5,7 +5,7 @@ import { db } from '../../firebase/firebase';
 
 import { scrumPoints } from '../../helpers/scrum';
 
-import { RoomIDInterface } from '../../contexts/AppContext';
+import { RoomComponentInterface } from '../../contexts/RoomContext';
 
 import Alert from './../Alert';
 import Container from './../Container';
@@ -18,7 +18,10 @@ const resetUserData = {
     voted: false,
 };
 
-export default function RoomCroupier({ roomID }: RoomIDInterface) {
+export default function RoomCroupier({
+    roomID,
+    roomName,
+}: RoomComponentInterface) {
     const dbUsers = db.collection('rooms').doc(roomID).collection('users');
     const [reset, setReset] = useState(false);
     const [usersIDs, setUsersIDs] = useState([]);
@@ -80,7 +83,7 @@ export default function RoomCroupier({ roomID }: RoomIDInterface) {
         <Container flex="end">
             <Alert type="error" content={error} setAlert={setError} />
 
-            <RoomTable roomID={roomID} />
+            <RoomTable roomID={roomID} roomName={roomName} />
 
             <Form onSubmit={submitHandler}>
                 <Button disabled={reset}>Reset</Button>

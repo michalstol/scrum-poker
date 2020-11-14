@@ -36,7 +36,7 @@ export default function SetRoom({
 
         switch (tab) {
             case 0:
-                jointHandler();
+                joinHandler();
                 break;
             case 1:
                 createHandler();
@@ -48,7 +48,7 @@ export default function SetRoom({
         }
     };
 
-    const jointHandler = () => {
+    const joinHandler = () => {
         if (content.length !== 20) return;
 
         dbRooms

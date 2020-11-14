@@ -3,7 +3,7 @@ import { firestore } from 'firebase';
 
 import { db } from './../../firebase/firebase';
 
-import { RoomIDInterface } from './../../contexts/AppContext';
+import { RoomComponentInterface } from './../../contexts/RoomContext';
 import { UserInterface } from './../../contexts/RoomContext';
 
 import Alert from './../Alert';
@@ -20,7 +20,10 @@ function RecordElement({ voted, name, bet }: UserInterface) {
     );
 }
 
-export default function RoomTable({ roomID }: RoomIDInterface) {
+export default function RoomTable({
+    roomID,
+    roomName,
+}: RoomComponentInterface) {
     const dbUsers = db.collection('rooms').doc(roomID).collection('users');
 
     const [users, setUsers] = useState([]);
@@ -50,7 +53,7 @@ export default function RoomTable({ roomID }: RoomIDInterface) {
 
             <Header
                 variant="header--flex-shrink"
-                subtitle={'The "Pictet" room.'}
+                subtitle={`The "${roomName}" room.`}
                 title={
                     users.length ? 'Voting results:' : 'Waiting for players...'
                 }

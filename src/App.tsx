@@ -17,6 +17,7 @@ import SelectRole from './components/SelectRole';
 import Room from './components/Room';
 
 import './styles/app.scss';
+import { connected } from 'process';
 
 function App() {
     const [appState, setAppState] = useState({

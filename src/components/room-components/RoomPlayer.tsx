@@ -6,7 +6,7 @@ import { auth, db } from '../../firebase/firebase';
 
 import { scrumPoints } from '../../helpers/scrum';
 
-import { RoomIDInterface } from '../../contexts/AppContext';
+import { RoomComponentInterface } from '../../contexts/RoomContext';
 
 import RoomTable from './RoomTable';
 import Card from './Card';
@@ -14,7 +14,10 @@ import Container from './../Container';
 import Form from '../form-components/Form';
 import Button from '../form-components/Button';
 
-export default function RoomPlayer({ roomID }: RoomIDInterface) {
+export default function RoomPlayer({
+    roomID,
+    roomName,
+}: RoomComponentInterface) {
     const { uid }: any = auth.currentUser;
     const dbCurrentUser = db
         .collection('rooms')
@@ -69,7 +72,7 @@ export default function RoomPlayer({ roomID }: RoomIDInterface) {
         >
             <Frame backgroundColor="transparent">
                 <Container flex="end">
-                    <RoomTable roomID={roomID} />
+                    <RoomTable roomID={roomID} roomName={roomName} />
                 </Container>
             </Frame>
 
