@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Frame, AnimatePresence } from 'framer';
 
 interface AlertInterface {
     type: 'error' | 'success';
@@ -41,9 +41,10 @@ export default function Alert({ type, content, setAlert }: AlertInterface) {
     return (
         <AnimatePresence>
             {visible && (
-                <motion.div
-                    className="alert"
-                    data-type={type}
+                <Frame
+                    top={0}
+                    width="100%"
+                    height="auto"
                     initial={{
                         translateY: -50,
                     }}
@@ -61,8 +62,10 @@ export default function Alert({ type, content, setAlert }: AlertInterface) {
                         },
                     }}
                 >
-                    {alertContent}
-                </motion.div>
+                    <div className="alert" data-type={type}>
+                        {alertContent}
+                    </div>
+                </Frame>
             )}
         </AnimatePresence>
     );

@@ -6,13 +6,13 @@
     top: 0;
     left: 0;
     width: 100%;
-    padding: 3vw 3vw;
-    font-size: 3.5vw;
+    padding: 12px;
+    font-size: 14px;
     font-weight: 200;
     letter-spacing: 0.5px;
     line-height: 1.3;
     color: var(--color-white);
-    border-radius: 1vw;
+    border-radius: 4px;
 
     &[data-type='error'] {
         background: var(--color-error);
