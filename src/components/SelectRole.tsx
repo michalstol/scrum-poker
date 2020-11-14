@@ -72,7 +72,6 @@ export default function SelectRole({
                     <Button
                         key={`select-role-${index}`}
                         type="button"
-                        active={role === userRole}
                         variation="button--distance-small"
                         onClick={() => selectRoleHandler(role)}
                     >
