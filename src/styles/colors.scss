@@ -14,4 +14,10 @@
         rgba(163, 40, 55, 1) 0%,
         rgba(245, 59, 59, 1) 100%
     );
+
+    --color-success: linear-gradient(
+        45deg,
+        rgb(40, 163, 60) 0%,
+        rgb(59, 245, 115) 100%
+    );
 }

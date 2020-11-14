@@ -51,7 +51,9 @@ export default function RoomTable({ roomID }: RoomIDInterface) {
             <Header
                 variant="header--flex-shrink"
                 subtitle={'The "Pictet" room.'}
-                title="Voting results:"
+                title={
+                    users.length ? 'Voting results:' : 'Waiting for players...'
+                }
             />
 
             <div className="room-table">

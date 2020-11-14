@@ -9,7 +9,8 @@ interface ButtonInterface {
         | 'active'
         | 'button--distance'
         | 'button--distance-small'
-        | 'button--secondary';
+        | 'button--secondary'
+        | 'button--revers';
     disabled?: boolean;
     onClick?: (event: React.FormEvent) => void;
 }

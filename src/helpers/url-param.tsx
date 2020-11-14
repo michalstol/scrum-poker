@@ -1,5 +1,5 @@
 export function getURLParam(name: string): object {
-    const { href } = window.location;
+    const href = decodeURI(window.location.href);
 
     if (!name || href.indexOf(`${name}=`) === -1 || href.indexOf('?') === -1)
         return {};

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface AlertInterface {
-    type: 'error';
+    type: 'error' | 'success';
     content?: string;
     setAlert: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -10,6 +10,9 @@ interface AlertInterface {
 const alertTypes = {
     error: {
         timeout: 3000,
+    },
+    success: {
+        timeout: 2000,
     },
 };
 

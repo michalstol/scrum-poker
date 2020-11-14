@@ -14,7 +14,6 @@
     background-color: $bg;
     display: block;
 
-    // &:active,
     &.active {
         color: $bg;
         background-color: $border;
@@ -38,11 +37,18 @@
         border-color: $bg;
         opacity: 0.6;
 
-        // &:active,
         &.active {
             color: $border;
             border-color: $border;
             background-color: $bg;
+        }
+    }
+
+    &--revers {
+        &:not(.active) {
+            color: $bg;
+            border-color: $bg;
+            background-color: transparent;
         }
     }
 }

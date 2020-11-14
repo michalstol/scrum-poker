@@ -10,7 +10,7 @@ interface InputInterface {
     minLength?: number;
     maxLength?: number;
     required?: boolean;
-    setValue: React.Dispatch<React.SetStateAction<string>>;
+    setValue?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function Input({ setValue, label, ...all }: InputInterface) {
@@ -21,7 +21,7 @@ export default function Input({ setValue, label, ...all }: InputInterface) {
                 {...all}
                 className="input"
                 onChange={function (event) {
-                    setValue(event.target.value);
+                    setValue && setValue(event.target.value);
                 }}
             />
             <div className="input-border"></div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { setCookie } from './helpers/cookie';
+import router from './helpers/router';
 
 import { defaultInterface, ContextInterface } from './contexts/AppContext';
 
@@ -8,6 +9,7 @@ import DebugViews from './components/DebugView';
 import Auth from './base/Auth';
 import PageWrapper from './components/PageWrapper';
 import Intro from './components/Intro';
+import Settings from './components/Settings';
 import SignInForm from './components/SignInForm';
 import SetNameAndPassword from './components/SetNameAndPassword';
 import SetRoom from './components/SetRoom';
@@ -15,27 +17,6 @@ import SelectRole from './components/SelectRole';
 import Room from './components/Room';
 
 import './styles/app.scss';
-
-function router({
-    authenticated,
-    connected,
-    roomID,
-    role,
-    userName,
-}: ContextInterface) {
-    if (!connected) return 'connecting';
-    if (!authenticated && connected) return 'sign-in';
-
-    if (authenticated && connected) {
-        if (!userName) return 'reset-user';
-        if (!roomID) return 'select-room';
-        if (!role) return 'select-role';
-
-        return 'room';
-    }
-
-    console.warn('Router -- problem with select page');
-}
 
 function App() {
     const [appState, setAppState] = useState({
@@ -53,7 +34,7 @@ function App() {
         setPage(router(appState));
     }, [appState]);
 
-    const { roomID, role } = appState;
+    const { roomID, role, userName } = appState;
 
     return (
         <>
@@ -87,6 +68,7 @@ function App() {
             </PageWrapper>
 
             <PageWrapper render={page === 'room'}>
+                <Settings roomID={roomID} userName={userName} />
                 <Room roomID={roomID} role={role} />
             </PageWrapper>
         </>

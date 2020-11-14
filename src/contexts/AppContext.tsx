@@ -7,14 +7,22 @@ import { RoleInterface } from './RoomContext';
 export interface AuthInterface {
     authenticated: boolean;
     connected: boolean;
-    userName: string;
 }
 
 export const defaultAuth = {
     authenticated: false,
     connected: false,
+    ...checkCookie(['authenticated']),
+};
+
+// UserInterface
+export interface UserInterface {
+    userName: string;
+}
+
+export const defaultUser = {
     userName: '',
-    ...checkCookie(['authenticated', 'userName']),
+    ...checkCookie(['userName']),
 };
 
 // RoomInterface
@@ -45,6 +53,7 @@ export const defaultUpdateContext = {
 // ContextInterface
 export interface ContextInterface
     extends AuthInterface,
+        UserInterface,
         RoomIDInterface,
         RoleInterface {}
 

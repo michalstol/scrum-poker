@@ -1,0 +1,41 @@
+.settings {
+    position: absolute;
+    color: var(--color-bg);
+    background-color: var(--color-content);
+    z-index: 999;
+
+    &__container {
+        flex: 0 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        .button {
+            flex: 0 0 auto;
+            width: calc(50% - 10px);
+        }
+    }
+
+    &__field-id {
+        // same as the button component
+        $height: 38px;
+
+        flex: 0 0 100%;
+        width: 100%;
+        height: $height;
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: $height;
+        color: var(--color-content);
+        text-align: center;
+        border: 1px solid var(--color-bg);
+        border-radius: $height / 2;
+        background-color: var(--color-bg);
+        overflow: hidden;
+    }
+
+    &.container {
+        padding-bottom: 50px;
+    }
+}

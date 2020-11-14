@@ -17,4 +17,8 @@
     &[data-type='error'] {
         background: var(--color-error);
     }
+
+    &[data-type='success'] {
+        background: var(--color-success);
+    }
 }
