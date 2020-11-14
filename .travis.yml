@@ -1,9 +1,9 @@
 langauge: node_js
 node_js:
-  - "10.10.0"
+    - '12.16.1'
 install:
-  - npm install
+    - npm install
 script:
-  - npm build
+    - npm build
 after_success:
-- firebase deploy --token "$FIREBASE_TOKEN"
+    - firebase deploy --token "$FIREBASE_TOKEN"

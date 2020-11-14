@@ -1,21 +1,20 @@
 {
-  "hosting": {
-    "public": "public",
-    "ignore": [
-      ".travis.yml",
-      "firebase.json",
-      "package.json",
-      "package_lock.json",
-      "firebase-debug.log",
-      "README.md",
-      ".gitignore",
-      "**/.*",
-      "**/functions/**",
-      "**/gulp/**",
-      "**/node_modules/**",
-      "**/sources/**",
-      "**/_temp/**",
-      "**/bashScripts/**"
-    ]
-  }
+    "hosting": {
+        "public": "public",
+        "ignore": [
+            ".prettierrc",
+            ".gitignore",
+            ".travis.yml",
+            "firebase.json",
+            "package.json",
+            "package_lock.json",
+            "ftsconfig.json",
+            "README.md",
+            "firebase-debug.log",
+            "**/.*",
+            "**/functions/**",
+            "**/node_modules/**",
+            "**/src/**"
+        ]
+    }
 }
