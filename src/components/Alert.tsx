@@ -31,11 +31,10 @@ export default function Alert({ type, content, setAlert }: AlertInterface) {
         if (visible && alertContent !== '') {
             const { timeout } = alertTypes[type];
 
-            timeout &&
-                setTimeout(() => {
-                    setVisible(false);
-                    setAlert('');
-                }, timeout);
+            setTimeout(() => {
+                setVisible(false);
+                setAlert('');
+            }, timeout);
         }
     }, [visible]);
 

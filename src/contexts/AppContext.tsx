@@ -47,7 +47,7 @@ export interface UpdateContextInterface {
 }
 
 export const defaultUpdateContext = {
-    updateContext: function ({}) {},
+    updateContext: function () {},
 };
 
 // ContextInterface

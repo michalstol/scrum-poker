@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from '*.module.css';
 
 interface ContainerInterface {
     flex?: 'end';

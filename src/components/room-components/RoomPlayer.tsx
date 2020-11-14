@@ -8,9 +8,10 @@ import { scrumPoints } from '../../helpers/scrum';
 
 import { RoomIDInterface } from '../../contexts/AppContext';
 
+import RoomTable from './RoomTable';
+import Card from './Card';
 import Container from './../Container';
 import Form from '../form-components/Form';
-import Select from '../form-components/Select';
 import Button from '../form-components/Button';
 
 export default function RoomPlayer({ roomID }: RoomIDInterface) {
@@ -50,10 +51,6 @@ export default function RoomPlayer({ roomID }: RoomIDInterface) {
         });
     }, [voted]);
 
-    const selectHandler = (index: number) => {
-        setBet(scrumPoints[index]);
-    };
-
     const submitHandler = (event: React.SyntheticEvent) => {
         event.preventDefault();
 
@@ -61,39 +58,56 @@ export default function RoomPlayer({ roomID }: RoomIDInterface) {
     };
 
     return (
-        <Container flex="end">
-            <Page
-                top={-10}
-                left={-30}
-                right={-30}
-                bottom={50}
-                padding={30}
-                momentum
-                gap={31}
-                defaultEffect="pile"
-                onChangePage={index => setBet(scrumPoints[index])}
-            >
-                {scrumPoints.map((amount, index) => (
-                    <Frame
-                        key={`balot-id-${index}`}
-                        animate={{
-                            translateX: [`-${index}00%`, '0%'],
-                            transition: {
-                                delay: 1,
-                            },
-                        }}
-                        backgroundColor="transparent"
-                    >
-                        <div className="card">
-                            <div className="card__number">{amount}</div>
-                        </div>
-                    </Frame>
-                ))}
-            </Page>
+        <Page
+            width="100%"
+            height="100%"
+            dragEnabled={false}
+            currentPage={voted ? 0 : 1}
+            contentHeight="stretch"
+            direction="vertical"
+            defaultEffect="pile"
+        >
+            <Frame backgroundColor="transparent">
+                <Container flex="end">
+                    <RoomTable roomID={roomID} />
+                </Container>
+            </Frame>
 
-            <Form onSubmit={submitHandler}>
-                <Button>Vote!</Button>
-            </Form>
-        </Container>
+            <Frame backgroundColor="transparent">
+                <Container flex="end">
+                    <Page
+                        top={-10}
+                        left={-30}
+                        right={-30}
+                        bottom={50}
+                        padding={30}
+                        momentum
+                        gap={31}
+                        dragEnabled={!voted}
+                        defaultEffect="pile"
+                        onChangePage={index => setBet(scrumPoints[index])}
+                    >
+                        {scrumPoints.map((amount, index) => (
+                            <Frame
+                                key={`balot-id-${index}`}
+                                animate={{
+                                    translateX: [`-${index}00%`, '0%'],
+                                    transition: {
+                                        delay: 1,
+                                    },
+                                }}
+                                backgroundColor="transparent"
+                            >
+                                <Card points={amount} />
+                            </Frame>
+                        ))}
+                    </Page>
+
+                    <Form onSubmit={submitHandler}>
+                        <Button disabled={voted}>Vote!</Button>
+                    </Form>
+                </Container>
+            </Frame>
+        </Page>
     );
 }

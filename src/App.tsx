@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { setCookie } from './helpers/cookie';
 import router from './helpers/router';
 
-import { defaultInterface, ContextInterface } from './contexts/AppContext';
+import { defaultInterface } from './contexts/AppContext';
 
 import DebugViews from './components/DebugView';
 import Auth from './base/Auth';

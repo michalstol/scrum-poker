@@ -18,4 +18,18 @@
         opacity: 0.1;
         z-index: -1;
     }
+
+    &__number {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        max-width: 100%;
+        width: 100%;
+        font-size: 200px;
+        line-height: 1;
+        letter-spacing: -20px;
+        text-align: center;
+        transform: translateX(0) translateY(-50%) translateZ(0);
+        overflow: hidden;
+    }
 }
