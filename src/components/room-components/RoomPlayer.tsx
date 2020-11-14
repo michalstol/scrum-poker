@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Frame, Page } from 'framer';
 import { firestore } from 'firebase';
 
 import { auth, db } from '../../firebase/firebase';
@@ -6,8 +7,8 @@ import { auth, db } from '../../firebase/firebase';
 import { scrumPoints } from '../../helpers/scrum';
 
 import { RoomIDInterface } from '../../contexts/AppContext';
-import { UserInterface } from '../../contexts/RoomContext';
 
+import Container from './../Container';
 import Form from '../form-components/Form';
 import Select from '../form-components/Select';
 import Button from '../form-components/Button';
@@ -49,8 +50,8 @@ export default function RoomPlayer({ roomID }: RoomIDInterface) {
         });
     }, [voted]);
 
-    const selectHandler = (event: React.FormEvent<HTMLSelectElement>) => {
-        setBet(Number(event.currentTarget.value));
+    const selectHandler = (index: number) => {
+        setBet(scrumPoints[index]);
     };
 
     const submitHandler = (event: React.SyntheticEvent) => {
@@ -60,16 +61,39 @@ export default function RoomPlayer({ roomID }: RoomIDInterface) {
     };
 
     return (
-        <Form onSubmit={submitHandler}>
-            <Select value={bet} onChange={selectHandler}>
-                {scrumPoints.map(value => (
-                    <option key={`scrum-point-${value}`} value={value}>
-                        {value}
-                    </option>
+        <Container flex="end">
+            <Page
+                top={-10}
+                left={-30}
+                right={-30}
+                bottom={50}
+                padding={30}
+                momentum
+                gap={31}
+                defaultEffect="pile"
+                onChangePage={index => setBet(scrumPoints[index])}
+            >
+                {scrumPoints.map((amount, index) => (
+                    <Frame
+                        key={`balot-id-${index}`}
+                        animate={{
+                            translateX: [`-${index}00%`, '0%'],
+                            transition: {
+                                delay: 1,
+                            },
+                        }}
+                        backgroundColor="transparent"
+                    >
+                        <div className="card">
+                            <div className="card__number">{amount}</div>
+                        </div>
+                    </Frame>
                 ))}
-            </Select>
+            </Page>
 
-            <Button>Vote!</Button>
-        </Form>
+            <Form onSubmit={submitHandler}>
+                <Button>Vote!</Button>
+            </Form>
+        </Container>
     );
 }

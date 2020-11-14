@@ -1,1 +1,1 @@
-export const scrumPoints = [0, 0.5, 1, 2, 3, 5, 8, 10, 13, 20, 40, 100];
+export const scrumPoints = [0, 0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100];
