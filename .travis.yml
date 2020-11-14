@@ -1,12 +1,23 @@
 branches:
     only:
         - master
+        - production
 langauge: node_js
 node_js:
     - '12.16.1'
 install:
     - npm install
-script:
-    - CI=false npm run build
-after_success:
-    - firebase hosting:channel:deploy master-preview --token "$FIREBASE_TOKEN"
+stages:
+    - compile
+    - name: deploy-preview
+    if: branch = master
+    - name: deploy-production
+    if: branch = production
+jobs:
+    include:
+        - stage: compile
+        script: CI=false npm run build
+        - stage: deploy-preview
+        script: firebase hosting:channel:deploy master-preview --token "$FIREBASE_TOKEN"
+        - stage: deploy-production
+        script: firebase hosting:channel:deploy master-preview --token "$FIREBASE_TOKEN"
