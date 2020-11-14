@@ -35,7 +35,7 @@ export default function SignInForm(): any {
                 <Alert type="error" content={error} setAlert={setError} />
 
                 <Header
-                    title="Let's play scrum poker remotely with our team."
+                    title="Let's play scrum poker remotely with your team."
                     subtitle="Welcome!"
                 />
 
