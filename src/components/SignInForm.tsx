@@ -10,6 +10,9 @@ import Form from './form-components/Form';
 import Input from './form-components/Input';
 import Button from './form-components/Button';
 
+const emailLength: number = 5;
+const passwordLength: number = 8;
+
 export default function SignInForm(): any {
     const [preventForm, setPreventForm] = useState(false);
     const [email, setEmail] = useState('');
@@ -50,7 +53,7 @@ export default function SignInForm(): any {
                         name="email"
                         placeholder="E-mail address"
                         autoComplete="email"
-                        minLength={5}
+                        minLength={emailLength}
                         required={true}
                         value={email}
                         setValue={setEmail}
@@ -61,14 +64,23 @@ export default function SignInForm(): any {
                         name="password"
                         placeholder="Password"
                         autoComplete="current-password"
-                        minLength={5}
+                        minLength={passwordLength}
                         required={true}
                         value={password}
                         setValue={setPassword}
                         disabled={preventForm}
                     />
 
-                    <Button variation="button--distance" disabled={preventForm}>
+                    <Button
+                        variation="button--distance"
+                        disabled={
+                            preventForm ||
+                            !email ||
+                            email.length < emailLength ||
+                            !password ||
+                            password.length < passwordLength
+                        }
+                    >
                         Submit
                     </Button>
                 </Form>

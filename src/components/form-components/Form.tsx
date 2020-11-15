@@ -12,7 +12,11 @@ export default function Form({
     onSubmit,
 }: FormInterface): any {
     return (
-        <form onSubmit={onSubmit} className={`form ${classes}`}>
+        <form
+            onSubmit={onSubmit}
+            className={`form ${classes}`}
+            autoComplete="off"
+        >
             {children}
         </form>
     );

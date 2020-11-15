@@ -41,10 +41,11 @@ export default function Settings({ roomID, userName }: SettingsInterface) {
         { bottom: 0, color: '#ffffff', opacity: 1 }
     );
 
-    const clickHandler = (event: React.SyntheticEvent) => {
+    const clickHandler = (event: Event) => {
         event.preventDefault();
 
-        const content: any = event.currentTarget.textContent?.toLocaleLowerCase();
+        const $target = event.target as HTMLElement;
+        const content: any = $target.innerText?.toLocaleLowerCase();
 
         if (!!content) setAlertContent(copy(roomID, content));
     };
