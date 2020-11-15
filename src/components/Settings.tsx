@@ -37,8 +37,8 @@ export default function Settings({ roomID, userName }: SettingsInterface) {
         { top: 0 }
     );
     const [animateBtn, cycleBtn] = useCycle(
-        { bottom: -13, backgroundColor: '#272727', opacity: 0.8 },
-        { bottom: 10, backgroundColor: '#ffffff', opacity: 1 }
+        { bottom: -23, color: '#272727', opacity: 0.8 },
+        { bottom: 0, color: '#ffffff', opacity: 1 }
     );
 
     const clickHandler = (event: React.SyntheticEvent) => {
@@ -94,17 +94,23 @@ export default function Settings({ roomID, userName }: SettingsInterface) {
 
             <Frame
                 animate={animateBtn}
+                transition={{
+                    ease: [0.08, 0.88, 0.12, 1],
+                }}
                 center="x"
-                bottom={-13}
+                bottom={-23}
                 width={100}
-                height={3}
+                height={23}
+                backgroundColor="transparent"
                 position="absolute"
                 style={{ zIndex: 9999 }}
                 onTap={() => {
                     cycleBtn();
                     cycleContainer();
                 }}
-            />
+            >
+                <div className="settings__bar"></div>
+            </Frame>
         </Frame>
     );
 }
