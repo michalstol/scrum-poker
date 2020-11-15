@@ -12,7 +12,7 @@ const alertTypes = {
         timeout: 3000,
     },
     success: {
-        timeout: 2000,
+        timeout: 3000,
     },
 };
 

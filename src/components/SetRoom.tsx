@@ -18,6 +18,8 @@ export default function SetRoom({
     updateContext,
 }: UpdateContextInterface): any {
     const dbRooms = db.collection('rooms');
+
+    const [preventForm, setPreventForm] = useState(false);
     const [tab, setTab] = useState(0);
     const [content, setContent] = useState('');
     const [error, setError] = useState('');
@@ -33,12 +35,15 @@ export default function SetRoom({
         event.preventDefault();
 
         if (!content) return;
+        if (preventForm) return;
 
         switch (tab) {
             case 0:
+                setPreventForm(true);
                 joinHandler();
                 break;
             case 1:
+                setPreventForm(true);
                 createHandler();
                 break;
             default:
@@ -55,7 +60,12 @@ export default function SetRoom({
             .doc(content)
             .get()
             .then(doc => {
-                if (!doc.exists) return;
+                if (!doc.exists) {
+                    setPreventForm(false);
+                    setError('Room with this ID number does not exist!');
+
+                    return;
+                }
 
                 updateContext(
                     {
@@ -64,9 +74,10 @@ export default function SetRoom({
                     true
                 );
             })
-            .catch((fError: firebase.firestore.FirestoreError) =>
-                setError(fError.message)
-            );
+            .catch((fError: firebase.firestore.FirestoreError) => {
+                setPreventForm(false);
+                setError(fError.message);
+            });
     };
     const createHandler = () => {
         if (content.length < 3) return;
@@ -90,9 +101,10 @@ export default function SetRoom({
                     true
                 );
             })
-            .catch((fError: firebase.firestore.FirestoreError) =>
-                setError(fError.message)
-            );
+            .catch((fError: firebase.firestore.FirestoreError) => {
+                setPreventForm(false);
+                setError(fError.message);
+            });
     };
 
     return (
@@ -116,6 +128,7 @@ export default function SetRoom({
                         minLength={20}
                         maxLength={20}
                         required={true}
+                        disabled={preventForm}
                         value={content}
                         setValue={setContent}
                     />
@@ -126,6 +139,7 @@ export default function SetRoom({
                         placeholder="Set a room name"
                         minLength={3}
                         required={true}
+                        disabled={preventForm}
                         value={content}
                         setValue={setContent}
                     />
@@ -136,6 +150,7 @@ export default function SetRoom({
                 <Button
                     type={tab === 0 ? 'submit' : 'button'}
                     variation={tab !== 0 ? 'button--secondary' : ''}
+                    disabled={preventForm}
                     onClick={(event: React.SyntheticEvent) => {
                         tab !== 0 && event.preventDefault();
                         switchTab(0);
@@ -153,6 +168,7 @@ export default function SetRoom({
                 <Button
                     type={tab === 1 ? 'submit' : 'button'}
                     variation={tab !== 1 ? 'button--secondary' : ''}
+                    disabled={preventForm}
                     onClick={(event: React.SyntheticEvent) => {
                         tab !== 1 && event.preventDefault();
                         switchTab(1);

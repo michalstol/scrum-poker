@@ -10,6 +10,17 @@ interface InputInterface {
     minLength?: number;
     maxLength?: number;
     required?: boolean;
+    disabled?: boolean;
+    autoComplete?:
+        | undefined
+        | 'off'
+        | 'on'
+        | 'name'
+        | 'email'
+        | 'username'
+        | 'new-password'
+        | 'current-password'
+        | 'one-time-code';
     setValue?: React.Dispatch<React.SetStateAction<string>>;
 }
 

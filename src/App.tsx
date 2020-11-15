@@ -11,7 +11,7 @@ import PageWrapper from './components/PageWrapper';
 import Intro from './components/Intro';
 import Settings from './components/Settings';
 import SignInForm from './components/SignInForm';
-import SetNameAndPassword from './components/SetNameAndPassword';
+import FirstVisit from './components/FirstVisit';
 import SetRoom from './components/SetRoom';
 import SelectRole from './components/SelectRole';
 import Room from './components/Room';
@@ -56,7 +56,7 @@ function App() {
             </PageWrapper>
 
             <PageWrapper render={page === 'reset-user'}>
-                <SetNameAndPassword updateContext={updateContext} />
+                <FirstVisit updateContext={updateContext} />
             </PageWrapper>
 
             <PageWrapper render={page === 'select-room'}>

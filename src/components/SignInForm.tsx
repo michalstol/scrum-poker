@@ -11,12 +11,16 @@ import Input from './form-components/Input';
 import Button from './form-components/Button';
 
 export default function SignInForm(): any {
+    const [preventForm, setPreventForm] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
     const submitHandler = (event: React.SyntheticEvent): void => {
         event.preventDefault();
+
+        if (preventForm) return;
+        setPreventForm(true);
 
         auth.signInWithEmailAndPassword(email.toLocaleLowerCase(), password)
             .then(() => {
@@ -26,7 +30,8 @@ export default function SignInForm(): any {
             })
             .catch((fError: firebase.auth.AuthError) =>
                 setError(fError.message)
-            );
+            )
+            .finally(() => setPreventForm(false));
     };
 
     return (
@@ -44,22 +49,28 @@ export default function SignInForm(): any {
                         type="email"
                         name="email"
                         placeholder="E-mail address"
+                        autoComplete="email"
                         minLength={5}
-                        // required={true}
+                        required={true}
                         value={email}
                         setValue={setEmail}
+                        disabled={preventForm}
                     />
                     <Input
                         type="password"
                         name="password"
                         placeholder="Password"
+                        autoComplete="current-password"
                         minLength={5}
-                        // required={true}
+                        required={true}
                         value={password}
                         setValue={setPassword}
+                        disabled={preventForm}
                     />
 
-                    <Button variation="button--distance">Submit</Button>
+                    <Button variation="button--distance" disabled={preventForm}>
+                        Submit
+                    </Button>
                 </Form>
             </Container>
         </>

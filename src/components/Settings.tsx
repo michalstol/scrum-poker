@@ -51,6 +51,7 @@ export default function Settings({ roomID, userName }: SettingsInterface) {
 
     return (
         <Frame
+            top="-100%"
             animate={animateContainer}
             transition={{
                 ease: [0.08, 0.88, 0.12, 1],
