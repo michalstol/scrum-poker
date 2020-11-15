@@ -9,7 +9,6 @@ install:
     - npm install
 script:
     - CI=false npm run build
-
 after_script:
     - if [ "$TRAVIS_BRANCH" = "master" ]; then firebase hosting:channel:deploy master-preview --token "$FIREBASE_TOKEN"; fi
     - if [ "$TRAVIS_BRANCH" = "production" ]; then firebase hosting:clone play-scrum-poker:master-preview:live --token "$FIREBASE_TOKEN"; fi
