@@ -29,7 +29,7 @@ export default function Button({
             type={type}
             className={`button ${variation} ${active ? 'active' : ''}`.trim()}
             onTap={onClick}
-            whileTap={{ scale: 0.9 }}
+            whileTap={{ scale: disabled ? 1 : 0.9 }}
             disabled={disabled}
         >
             {children}

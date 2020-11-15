@@ -25,6 +25,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
+        "deploy-feature": "react-scripts build && firebase hosting:channel:deploy feature-preview",
         "eject": "react-scripts eject"
     },
     "eslintConfig": {
