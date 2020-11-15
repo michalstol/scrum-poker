@@ -10,4 +10,4 @@ install:
 script:
     - CI=false npm run build
 after_script:
-    - if [ "$TRAVIS_BRANCH" = "master" ]; then firebase hosting:channel:deploy master-preview --token "$FIREBASE_TOKEN"
+    - firebase hosting:channel:deploy master-preview --token "$FIREBASE_TOKEN"
