@@ -1,7 +1,7 @@
 // import React from 'react';
 // import { render } from '@testing-library/react';
 
-import { cookieName, saveCookie, readCookie } from './../helpers/cookie';
+import { cookieName, saveCookie, readCookie } from './../../helpers/cookie';
 
 const testedValue = {
     authenticated: true,

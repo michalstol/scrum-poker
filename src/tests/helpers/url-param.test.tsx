@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import { getURLParam } from './../helpers/url-param';
+import { getURLParam } from './../../helpers/url-param';
 
 const testedValue = '8EcZSYBg04ahWXVASklF';
 
