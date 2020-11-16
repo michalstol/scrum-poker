@@ -68,7 +68,6 @@ export default function SelectRole({
                 name: displayName,
             })
             .then(() => {
-                setPreventForm(false);
                 updateContext({ ...newRole }, true);
             })
             .catch((fError: firebase.firestore.FirestoreError) => {
