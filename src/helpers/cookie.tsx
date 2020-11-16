@@ -1,4 +1,4 @@
-const cookieName = 'sp-cookie';
+export const cookieName = 'sp-cookie';
 let currentCookie = {};
 
 function updateCookieData(data: any): any {
