@@ -25,12 +25,7 @@ export default function SignInForm(): any {
         if (preventForm) return;
         setPreventForm(true);
 
-        auth.signInWithEmailAndPassword(email.toLocaleLowerCase(), password)
-            .then(() => {
-                setEmail('');
-                setPassword('');
-                setError('');
-            })
+        auth.signInWithEmailAndPassword(email, password)
             .catch((fError: firebase.auth.AuthError) =>
                 setError(fError.message)
             )

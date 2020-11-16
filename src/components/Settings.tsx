@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Frame, useCycle } from 'framer';
 
-import { RoomIDInterface, UserInterface } from './../contexts/AppContext';
+import { auth } from './../firebase/firebase';
+
+import { RoomIDInterface } from './../contexts/AppContext';
 
 import Alert from './Alert';
 import Container from './Container';
 import Header from './Header';
 import Button from './form-components/Button';
 
-interface SettingsInterface extends RoomIDInterface, UserInterface {}
+interface SettingsInterface extends RoomIDInterface {}
 
 function copy(id: string | undefined, type: 'id' | 'url'): string {
     if (!id) return '';
@@ -30,7 +32,8 @@ function copy(id: string | undefined, type: 'id' | 'url'): string {
     } is copied to your clipboard.`;
 }
 
-export default function Settings({ roomID, userName }: SettingsInterface) {
+export default function Settings({ roomID }: SettingsInterface) {
+    const userName = auth.currentUser?.displayName || '';
     const [alertContent, setAlertContent] = useState('');
     const [animateContainer, cycleContainer] = useCycle(
         { top: '-100%' },
@@ -71,7 +74,7 @@ export default function Settings({ roomID, userName }: SettingsInterface) {
 
                 <Header
                     title="Would you like to share your room? Just copy the room ID or URL address."
-                    subtitle={`What's up ${userName}?`}
+                    subtitle={`What's up ${userName}?`.trim()}
                 />
 
                 <div className="settings__container">

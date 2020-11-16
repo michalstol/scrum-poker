@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { setCookie } from './helpers/cookie';
+import { saveCookie } from './helpers/cookie';
 import router from './helpers/router';
 
 import { defaultInterface } from './contexts/AppContext';
@@ -27,14 +27,14 @@ function App() {
     const updateContext = (newState: any, updateCookie?: boolean): any => {
         setAppState({ ...appState, ...newState });
 
-        updateCookie && setCookie({ ...newState });
+        updateCookie && saveCookie({ ...newState });
     };
 
     useEffect(() => {
         setPage(router(appState));
     }, [appState]);
 
-    const { roomID, role, userName } = appState;
+    const { roomID, role } = appState;
 
     return (
         <>
@@ -68,7 +68,7 @@ function App() {
             </PageWrapper>
 
             <PageWrapper render={page === 'room'}>
-                <Settings roomID={roomID} userName={userName} />
+                <Settings roomID={roomID} />
                 <Room roomID={roomID} role={role} />
             </PageWrapper>
         </>

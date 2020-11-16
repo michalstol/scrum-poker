@@ -1,4 +1,4 @@
-import { checkCookie } from './../helpers/cookie';
+import { readCookie } from './../helpers/cookie';
 import { getURLParam } from './../helpers/url-param';
 
 import { RoleInterface } from './RoomContext';
@@ -12,7 +12,7 @@ export interface AuthInterface {
 export const defaultAuth = {
     authenticated: false,
     connected: false,
-    ...checkCookie(['authenticated']),
+    ...readCookie(['authenticated']),
 };
 
 // UserInterface
@@ -22,7 +22,7 @@ export interface UserInterface {
 
 export const defaultUser = {
     userName: '',
-    ...checkCookie(['userName']),
+    ...readCookie(['userName']),
 };
 
 // RoomInterface
@@ -32,13 +32,13 @@ export interface RoomIDInterface {
 
 export const defaultRoom = {
     roomID: undefined,
-    ...checkCookie(['roomID']),
+    ...readCookie(['roomID']),
     ...getURLParam('roomID'),
 };
 
 export const defaultRole = {
     role: undefined,
-    ...checkCookie(['role']),
+    ...readCookie(['role']),
 };
 
 // UpdateContext

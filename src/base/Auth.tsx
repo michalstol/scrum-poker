@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { auth } from './../firebase/firebase';
-import { setCookie } from './../helpers/cookie';
+import { saveCookie } from './../helpers/cookie';
 
 import { UpdateContextInterface, defaultAuth } from './../contexts/AppContext';
 
@@ -10,7 +10,7 @@ export default function Auth({ updateContext }: UpdateContextInterface): any {
     const [userData, setUserData] = useState({ uid: 'false' });
 
     useEffect(() => {
-        setCookie({
+        saveCookie({
             authenticated: authState.authenticated,
             userName: authState.userName,
         });

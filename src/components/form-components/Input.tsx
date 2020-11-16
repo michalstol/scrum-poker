@@ -32,7 +32,20 @@ export default function Input({ setValue, label, ...all }: InputInterface) {
                 {...all}
                 className="input"
                 onChange={function (event) {
-                    setValue && setValue(event.target.value);
+                    const value = event.target.value;
+
+                    if (!setValue) return;
+
+                    switch (all.type) {
+                        case 'email':
+                            setValue(value.toLocaleLowerCase().trim());
+                            break;
+                        case 'password':
+                            setValue(value);
+                            break;
+                        default:
+                            setValue(value.trim());
+                    }
                 }}
             />
             <div className="input-border"></div>
