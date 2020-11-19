@@ -1,6 +1,3 @@
-// import React from 'react';
-// import { render } from '@testing-library/react';
-
 import { cookieName, saveCookie, readCookie } from './../../helpers/cookie';
 
 const testedValue = {
@@ -35,3 +32,6 @@ test('saveCookie', () => {
 
     expect(valueAfter).toEqual(testedValue);
 });
+
+// import React from 'react';
+// import { render } from '@testing-library/react';
