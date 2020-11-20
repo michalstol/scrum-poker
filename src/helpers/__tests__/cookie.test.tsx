@@ -1,4 +1,4 @@
-import { cookieName, saveCookie, readCookie } from './../../helpers/cookie';
+import { cookieName, saveCookie, readCookie } from '../cookie';
 
 const testedValue = {
     authenticated: true,

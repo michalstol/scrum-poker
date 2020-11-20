@@ -1,4 +1,4 @@
-import router, { routesArray } from './../../helpers/router';
+import router, { routesArray } from './../router';
 
 routesArray.map(route => {
     test(`Router - ${route.url}`, () => {

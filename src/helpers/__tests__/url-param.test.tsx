@@ -1,4 +1,4 @@
-import { getURLParam } from './../../helpers/url-param';
+import { getURLParam } from './../url-param';
 
 const testedValue = '8EcZSYBg04ahWXVASklF';
 
