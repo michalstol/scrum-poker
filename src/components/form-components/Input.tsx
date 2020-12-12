@@ -40,11 +40,8 @@ export default function Input({ setValue, label, ...all }: InputInterface) {
                         case 'email':
                             setValue(value.toLocaleLowerCase().trim());
                             break;
-                        case 'password':
-                            setValue(value);
-                            break;
                         default:
-                            setValue(value.trim());
+                            setValue(value);
                     }
                 }}
             />

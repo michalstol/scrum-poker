@@ -1,5 +1,7 @@
 import { RoomIDInterface } from './AppContext';
 
+import { createTimeout } from '../helpers/db-functions';
+
 // Room Interface
 export interface RoomInterface {
     name: string;
@@ -26,11 +28,12 @@ export interface RoleInterface {
 
 // User Interface
 
-export interface UserInterface {
+export interface RoomUserInterface {
     uid: string;
     name: string;
     bet: undefined | number;
     voted: boolean;
+    timestamp: number;
     clone(role: RoleInterface): RoleInterface;
 }
 
@@ -40,4 +43,5 @@ export const defaultRoomUser = {
     role: roles[0],
     bet: 0,
     voted: false,
+    timestamp: createTimeout(),
 };

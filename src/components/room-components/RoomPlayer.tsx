@@ -6,6 +6,8 @@ import { auth, db } from '../../firebase/firebase';
 
 import { RoomComponentInterface } from '../../contexts/RoomContext';
 
+import { createTimeout } from '../../helpers/db-functions';
+
 import RoomTable from './RoomTable';
 import Container from './../Container';
 import Cards from './Cards';
@@ -48,14 +50,9 @@ export default function RoomPlayer({
         dbCurrentUser.update({
             bet,
             voted,
+            timestamp: createTimeout(),
         });
     }, [voted]);
-
-    const submitHandler = (event: React.SyntheticEvent) => {
-        event.preventDefault();
-
-        setVoted(true);
-    };
 
     return (
         <Page

@@ -4,12 +4,12 @@ import { firestore } from 'firebase';
 import { db } from './../../firebase/firebase';
 
 import { RoomComponentInterface } from './../../contexts/RoomContext';
-import { UserInterface } from './../../contexts/RoomContext';
+import { RoomUserInterface } from './../../contexts/RoomContext';
 
 import Alert from './../Alert';
 import Header from './../Header';
 
-function RecordElement({ voted, name, bet }: UserInterface) {
+function RecordElement({ voted, name, bet }: RoomUserInterface) {
     return (
         <li className={`room-table__el ${!voted ? 'voting' : ''}`}>
             <div className="room-table__el-name">{name}</div>
@@ -62,7 +62,7 @@ export default function RoomTable({
             <div className="room-table">
                 <ul className="room-table__list">
                     {users
-                        .filter((record: UserInterface) => !!record.voted)
+                        .filter((record: RoomUserInterface) => !!record.voted)
                         .map((record, index) => (
                             <RecordElement
                                 key={`room-table-voted-${index}`}
@@ -70,7 +70,7 @@ export default function RoomTable({
                             />
                         ))}
                     {users
-                        .filter((record: UserInterface) => !record.voted)
+                        .filter((record: RoomUserInterface) => !record.voted)
                         .map((record, index) => (
                             <RecordElement
                                 key={`room-table-voting-${index}`}

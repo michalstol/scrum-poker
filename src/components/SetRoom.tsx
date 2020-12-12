@@ -6,6 +6,8 @@ import { auth, db } from './../firebase/firebase';
 import { UpdateContextInterface } from './../contexts/AppContext';
 import { defaultRoom } from './../contexts/RoomContext';
 
+import { createTimeout } from './../helpers//db-functions';
+
 import Alert from './Alert';
 import Container from './Container';
 import Header from './Header';
@@ -40,11 +42,11 @@ export default function SetRoom({
         switch (tab) {
             case 0:
                 setPreventForm(true);
-                joinHandler();
+                joinHandler(content);
                 break;
             case 1:
                 setPreventForm(true);
-                createHandler();
+                createHandler(content);
                 break;
             default:
                 console.warn(
@@ -53,11 +55,11 @@ export default function SetRoom({
         }
     };
 
-    const joinHandler = () => {
-        if (content.length !== 20) return;
+    const joinHandler = (roomID: string) => {
+        if (roomID.length !== 20) return;
 
         dbRooms
-            .doc(content)
+            .doc(roomID)
             .get()
             .then(doc => {
                 if (!doc.exists) {
@@ -69,7 +71,7 @@ export default function SetRoom({
 
                 updateContext(
                     {
-                        roomID: content,
+                        roomID: roomID.trim(),
                     },
                     true
                 );
@@ -79,17 +81,17 @@ export default function SetRoom({
                 setError(fError.message);
             });
     };
-    const createHandler = () => {
-        if (content.length < 3) return;
+    const createHandler = (roomName: string) => {
+        if (roomName.length < 3) return;
 
         const { uid }: any = auth.currentUser;
 
         dbRooms
             .add({
                 ...defaultRoom,
-                name: content,
+                name: roomName.trim(),
                 admin: uid,
-                users: [],
+                timestamp: createTimeout(),
             })
             .then(doc => {
                 const { id } = doc;

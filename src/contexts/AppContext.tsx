@@ -16,11 +16,11 @@ export const defaultAuth = {
 };
 
 // UserInterface
-export interface UserInterface {
+export interface AppUserInterface {
     userName: string;
 }
 
-export const defaultUser = {
+export const defaultAppUser = {
     userName: '',
     ...readCookie(['userName']),
 };
@@ -53,7 +53,7 @@ export const defaultUpdateContext = {
 // ContextInterface
 export interface ContextInterface
     extends AuthInterface,
-        UserInterface,
+        AppUserInterface,
         RoomIDInterface,
         RoleInterface {}
 
