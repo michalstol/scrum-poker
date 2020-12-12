@@ -10,7 +10,7 @@ interface CardsInterface {
 
 export default function Cards({ setBet, setVoted }: CardsInterface) {
     const constraintsRef = useRef(null);
-    const [selected, setSelected] = useState(-1);
+    const [selected, setSelected] = useState(0);
     const clickHandler = (cardNumber: number) => {
         if (selected === cardNumber) {
             setVoted(true);
