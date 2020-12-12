@@ -4,15 +4,12 @@ import { firestore } from 'firebase';
 
 import { auth, db } from '../../firebase/firebase';
 
-import { scrumPoints } from '../../helpers/scrum';
-
 import { RoomComponentInterface } from '../../contexts/RoomContext';
 
 import RoomTable from './RoomTable';
-import Card from './Card';
 import Container from './../Container';
-import Form from '../form-components/Form';
-import Button from '../form-components/Button';
+import Cards from './Cards';
+import BetNumber from './BetNumber';
 
 export default function RoomPlayer({
     roomID,
@@ -25,7 +22,7 @@ export default function RoomPlayer({
         .collection('users')
         .doc(uid);
 
-    const [bet, setBet] = useState(scrumPoints[0]);
+    const [bet, setBet] = useState(-1);
     const [voted, setVoted] = useState(false);
 
     useEffect(() => {
@@ -77,38 +74,9 @@ export default function RoomPlayer({
             </Frame>
 
             <Frame backgroundColor="transparent">
-                <Container flex="end">
-                    <Page
-                        top={-10}
-                        left={-30}
-                        right={-30}
-                        bottom={50}
-                        padding={30}
-                        momentum
-                        gap={31}
-                        dragEnabled={!voted}
-                        // defaultEffect="pile"
-                        onChangePage={index => setBet(scrumPoints[index])}
-                    >
-                        {scrumPoints.map((amount, index) => (
-                            <Frame
-                                key={`balot-id-${index}`}
-                                // animate={{
-                                //     translateX: [`-${index}00%`, '0%'],
-                                //     transition: {
-                                //         delay: 1,
-                                //     },
-                                // }}
-                                backgroundColor="transparent"
-                            >
-                                <Card points={amount} />
-                            </Frame>
-                        ))}
-                    </Page>
-
-                    <Form onSubmit={submitHandler}>
-                        <Button disabled={voted}>Vote!</Button>
-                    </Form>
+                <Container flex="space-between">
+                    <BetNumber bet={bet} />
+                    <Cards setBet={setBet} setVoted={setVoted} />
                 </Container>
             </Frame>
         </Page>

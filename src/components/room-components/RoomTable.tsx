@@ -14,7 +14,7 @@ function RecordElement({ voted, name, bet }: UserInterface) {
         <li className={`room-table__el ${!voted ? 'voting' : ''}`}>
             <div className="room-table__el-name">{name}</div>
             <div className="room-table__el-bet">
-                {voted ? bet : '...voiting'}
+                {voted ? bet : '...voting'}
             </div>
         </li>
     );
