@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Frame, useCycle } from 'framer';
 
-import { RoomIDInterface, UserInterface } from './../contexts/AppContext';
+import { auth } from './../firebase/firebase';
+
+import { RoomIDInterface } from './../contexts/AppContext';
 
 import Alert from './Alert';
 import Container from './Container';
 import Header from './Header';
 import Button from './form-components/Button';
 
-interface SettingsInterface extends RoomIDInterface, UserInterface {}
+interface SettingsInterface extends RoomIDInterface {}
 
 function copy(id: string | undefined, type: 'id' | 'url'): string {
     if (!id) return '';
@@ -30,27 +32,30 @@ function copy(id: string | undefined, type: 'id' | 'url'): string {
     } is copied to your clipboard.`;
 }
 
-export default function Settings({ roomID, userName }: SettingsInterface) {
+export default function Settings({ roomID }: SettingsInterface) {
+    const userName = auth.currentUser?.displayName || '';
     const [alertContent, setAlertContent] = useState('');
     const [animateContainer, cycleContainer] = useCycle(
         { top: '-100%' },
         { top: 0 }
     );
     const [animateBtn, cycleBtn] = useCycle(
-        { bottom: -13, backgroundColor: '#272727', opacity: 0.8 },
-        { bottom: 10, backgroundColor: '#ffffff', opacity: 1 }
+        { bottom: -23, color: '#272727', opacity: 0.8 },
+        { bottom: 0, color: '#ffffff', opacity: 1 }
     );
 
-    const clickHandler = (event: React.SyntheticEvent) => {
+    const clickHandler = (event: Event) => {
         event.preventDefault();
 
-        const content: any = event.currentTarget.textContent?.toLocaleLowerCase();
+        const $target = event.target as HTMLElement;
+        const content: any = $target.innerText?.toLocaleLowerCase();
 
         if (!!content) setAlertContent(copy(roomID, content));
     };
 
     return (
         <Frame
+            top="-100%"
             animate={animateContainer}
             transition={{
                 ease: [0.08, 0.88, 0.12, 1],
@@ -69,7 +74,7 @@ export default function Settings({ roomID, userName }: SettingsInterface) {
 
                 <Header
                     title="Would you like to share your room? Just copy the room ID or URL address."
-                    subtitle={`What's up ${userName}?`}
+                    subtitle={`What's up ${userName}?`.trim()}
                 />
 
                 <div className="settings__container">
@@ -94,17 +99,23 @@ export default function Settings({ roomID, userName }: SettingsInterface) {
 
             <Frame
                 animate={animateBtn}
+                transition={{
+                    ease: [0.08, 0.88, 0.12, 1],
+                }}
                 center="x"
-                bottom={-13}
+                bottom={-23}
                 width={100}
-                height={3}
+                height={23}
+                backgroundColor="transparent"
                 position="absolute"
                 style={{ zIndex: 9999 }}
                 onTap={() => {
                     cycleBtn();
                     cycleContainer();
                 }}
-            />
+            >
+                <div className="settings__bar"></div>
+            </Frame>
         </Frame>
     );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer';
 
 interface ButtonInterface {
     children: any;
@@ -12,25 +13,26 @@ interface ButtonInterface {
         | 'button--secondary'
         | 'button--revers';
     disabled?: boolean;
-    onClick?: (event: React.FormEvent) => void;
+    onClick?: (event: MouseEvent | TouchEvent | PointerEvent) => void;
 }
 
 export default function Button({
     children,
     type = 'submit',
     active,
-    variation,
+    variation = '',
     disabled,
     onClick = () => {},
 }: ButtonInterface): any {
     return (
-        <button
+        <motion.button
             type={type}
-            className={`button ${variation} ${active ? 'active' : ''}`}
-            onClick={onClick}
+            className={`button ${variation} ${active ? 'active' : ''}`.trim()}
+            onTap={onClick}
+            whileTap={{ scale: disabled ? 1 : 0.9 }}
             disabled={disabled}
         >
             {children}
-        </button>
+        </motion.button>
     );
 }

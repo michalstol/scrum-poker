@@ -10,6 +10,17 @@ interface InputInterface {
     minLength?: number;
     maxLength?: number;
     required?: boolean;
+    disabled?: boolean;
+    autoComplete?:
+        | undefined
+        | 'off'
+        | 'on'
+        | 'name'
+        | 'email'
+        | 'username'
+        | 'new-password'
+        | 'current-password'
+        | 'one-time-code';
     setValue?: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -21,7 +32,20 @@ export default function Input({ setValue, label, ...all }: InputInterface) {
                 {...all}
                 className="input"
                 onChange={function (event) {
-                    setValue && setValue(event.target.value);
+                    const value = event.target.value;
+
+                    if (!setValue) return;
+
+                    switch (all.type) {
+                        case 'email':
+                            setValue(value.toLocaleLowerCase().trim());
+                            break;
+                        case 'password':
+                            setValue(value);
+                            break;
+                        default:
+                            setValue(value.trim());
+                    }
                 }}
             />
             <div className="input-border"></div>

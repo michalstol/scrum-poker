@@ -1,11 +1,15 @@
 import React from 'react';
 import { Frame } from 'framer';
 
-export default function Intro(): any {
+interface IntroInterface {
+    duration?: undefined | number;
+}
+
+export default function Intro({ duration = 2 }: IntroInterface): any {
     return (
         <Frame
             center
-            size={100}
+            size={50}
             borderRadius={'20% 20% 20% 110%'}
             background="var(--color-content)"
             animate={{
@@ -17,7 +21,7 @@ export default function Intro(): any {
                     '20% 20% 20% 110%',
                 ],
                 transition: {
-                    duration: 2,
+                    duration,
                     repeat: Infinity,
                 },
             }}

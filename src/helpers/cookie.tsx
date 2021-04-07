@@ -1,4 +1,4 @@
-const cookieName = 'sp-cookie';
+export const cookieName = 'sp-cookie';
 let currentCookie = {};
 
 function updateCookieData(data: any): any {
@@ -9,13 +9,13 @@ function updateCookieData(data: any): any {
     return currentCookie;
 }
 
-export function checkCookie(params: string[] = []) {
+export function readCookie(params: string[] = []) {
     const cookies = document.cookie.split('; ');
 
     for (let cookie of cookies) {
         if (cookie.indexOf(cookieName) === 0) {
             const parseCookie = updateCookieData(
-                JSON.parse(cookie.replace(`${cookieName}=`, ''))
+                JSON.parse(decodeURI(cookie.replace(`${cookieName}=`, '')))
             );
             let paramsObject: any = {};
 
@@ -35,13 +35,13 @@ export function checkCookie(params: string[] = []) {
     return {};
 }
 
-export function setCookie(data: any) {
+export function saveCookie(data: any) {
     if (!data) return;
 
     const newData = updateCookieData(data);
     const newDate = new Date().getTime() + 365 * 24 * 60 * 60 * 1000;
-    const newCookie = `${cookieName}=${JSON.stringify(
-        newData
+    const newCookie = `${cookieName}=${encodeURI(
+        JSON.stringify(newData)
     )}; expires=${new Date(newDate).toUTCString()}`;
 
     document.cookie = newCookie;

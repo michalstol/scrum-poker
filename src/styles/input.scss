@@ -13,8 +13,16 @@
     text-align: left;
     border: none;
     border-radius: 0;
-    background-color: transparent;
+    background-color: var(--color-bg);
     display: block;
+
+    &:-webkit-autofill {
+        &,
+        &:hover,
+        &:focus {
+            box-shadow: 0 0 0px 1000px var(--color-bg) inset;
+        }
+    }
 
     &::placeholder {
         color: currentColor;
@@ -22,24 +30,41 @@
     }
 
     &[type='password'] {
-        font-size: 24px;
+        &:not(:placeholder-shown) {
+            font-size: 24px;
+        }
 
+        &:focus,
         &::placeholder {
             font-size: $font-size;
         }
     }
 
     &-border {
+        position: relative;
         height: 1px;
         margin-top: 3px;
-        transform: scaleX(0);
         transform-origin: left;
-        background-color: var(--color-black);
-        opacity: 0.4;
+        overflow: hidden;
         display: block;
 
-        #{$root}:not(:placeholder-shown) + & {
-            transform: scaleX(1);
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-black);
+            transform: translateX(-101%) translateY(0) translateZ(0);
+            transform-origin: left;
+            transition: transform 200ms cubic-bezier(0.08, 0.88, 0.12, 1);
+            opacity: 0.4;
+
+            #{$root}:focus + &,
+            #{$root}:not(:placeholder-shown) + & {
+                transform: translateX(0) translateY(0) translateZ(0);
+            }
         }
     }
 }

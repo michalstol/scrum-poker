@@ -1,0 +1,10 @@
+.bet-number {
+    flex: 0 1 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__el {
+        font-size: 50vw;
+    }
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import firebase from 'firebase';
+import firebase, { firestore } from 'firebase';
 
 import { auth, db } from './../firebase/firebase';
 
@@ -22,17 +22,44 @@ export default function SelectRole({
     roomID,
 }: SelectRoleInterface): any {
     const { uid, displayName }: any = auth.currentUser;
-    const dbRoom = db.collection('rooms').doc(roomID).collection('users');
+    const dbRoom: firestore.DocumentReference<firestore.DocumentData> = db
+        .collection('rooms')
+        .doc(roomID);
+    const dbUser: firestore.CollectionReference = db
+        .collection('rooms')
+        .doc(roomID)
+        .collection('users');
+
+    const [preventForm, setPreventForm] = useState(false);
     const [userRole, setUserRole] = useState('');
     const [error, setError] = useState('');
 
-    useEffect(() => {
-        if (!uid) return;
-        if (!userRole && roles.indexOf(userRole) === -1) return;
-
+    const saveUser = async () => {
         const newRole = { role: userRole };
+        const docExist: boolean = await dbRoom
+            .get()
+            .then((doc: firestore.DocumentSnapshot) => {
+                if (!doc.exists) {
+                    setPreventForm(false);
+                    setError(
+                        `Room with this ID number "${roomID}" does not exist!`
+                    );
 
-        dbRoom
+                    return false;
+                }
+
+                return true;
+            })
+            .catch((fError: firebase.firestore.FirestoreError) => {
+                setPreventForm(false);
+                setError(fError.message);
+
+                return false;
+            });
+
+        if (!docExist) return;
+
+        dbUser
             .doc(uid)
             .set({
                 ...defaultRoomUser,
@@ -43,9 +70,18 @@ export default function SelectRole({
             .then(() => {
                 updateContext({ ...newRole }, true);
             })
-            .catch((fError: firebase.firestore.FirestoreError) =>
-                setError(fError.message)
-            );
+            .catch((fError: firebase.firestore.FirestoreError) => {
+                setPreventForm(false);
+                setError(fError.message);
+            });
+    };
+
+    useEffect(() => {
+        if (!uid) return;
+        if (!userRole && roles.indexOf(userRole) === -1) return;
+        if (!preventForm) return;
+
+        saveUser();
     }, [userRole]);
 
     const submitHandler = (event: React.SyntheticEvent) => {
@@ -54,7 +90,9 @@ export default function SelectRole({
 
     const selectRoleHandler = (role: string) => {
         if (role === userRole) return;
+        if (preventForm) return;
 
+        setPreventForm(true);
         setUserRole(role);
     };
 
@@ -73,6 +111,7 @@ export default function SelectRole({
                         key={`select-role-${index}`}
                         type="button"
                         variation="button--distance-small"
+                        disabled={preventForm}
                         onClick={() => selectRoleHandler(role)}
                     >
                         {role}

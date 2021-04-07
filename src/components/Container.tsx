@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ContainerInterface {
-    flex?: 'end';
+    flex?: 'end' | 'space-between';
     classes?: string;
     children: any;
 }

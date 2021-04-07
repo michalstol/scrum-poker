@@ -13,5 +13,9 @@
         &[data-flex-position='end'] {
             justify-content: flex-end;
         }
+
+        &[data-flex-position='space-between'] {
+            justify-content: space-between;
+        }
     }
 }

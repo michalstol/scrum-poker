@@ -1,6 +1,8 @@
 import React from 'react';
 import { Frame, AnimatePresence } from 'framer';
 
+import useWindowSize from './../hooks/useWindowSize';
+
 interface PageWrapperInterface {
     render: boolean;
     children: any;
@@ -16,15 +18,16 @@ export default function PageWrapper({
     opacity = [0, 1],
     delay = 0,
 }: PageWrapperInterface) {
+    const windowSize = useWindowSize();
+
     return (
         <AnimatePresence>
             {render && (
                 <Frame
                     top={0}
-                    bottom={0}
                     left={0}
-                    right={0}
-                    width="100%"
+                    width={windowSize.width}
+                    height={windowSize.height}
                     backgroundColor="var(--color-bg)"
                     style={{ zIndex }}
                     animate={{
