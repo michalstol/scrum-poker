@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import firebase from 'firebase';
 
 import { auth } from '../firebase/firebase';
+
+import { ResetInterface } from '../contexts/AppContext';
 
 import Alert from './Alert';
 import Container from './Container';
@@ -13,11 +15,24 @@ import Button from './form-components/Button';
 const emailLength: number = 5;
 const passwordLength: number = 8;
 
-export default function SignInForm(): any {
+interface SignInInterface extends ResetInterface {
+    clearReset: Function;
+}
+
+export default function SignInForm({
+    reset = false,
+    clearReset = () => {},
+}: SignInInterface): any {
     const [preventForm, setPreventForm] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        if (!!reset) return;
+
+        clearReset();
+    }, []);
 
     const submitHandler = (event: React.SyntheticEvent): void => {
         event.preventDefault();

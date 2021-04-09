@@ -12,7 +12,17 @@ export interface AuthInterface {
 export const defaultAuth = {
     authenticated: false,
     connected: false,
+    reset: false,
     ...readCookie(['authenticated']),
+};
+
+// ResetInterface
+export interface ResetInterface {
+    reset: boolean | 'both';
+}
+
+export const defaultReset = {
+    reset: false,
 };
 
 // UserInterface
@@ -53,12 +63,14 @@ export const defaultUpdateContext = {
 // ContextInterface
 export interface ContextInterface
     extends AuthInterface,
+        ResetInterface,
         UserInterface,
         RoomIDInterface,
         RoleInterface {}
 
 export const defaultInterface = {
     ...defaultAuth,
+    ...defaultReset,
     ...defaultRoom,
     ...defaultRole,
 };

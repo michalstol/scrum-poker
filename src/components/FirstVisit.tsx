@@ -18,12 +18,10 @@ export default function FirstVisit({ updateContext }: UpdateContextInterface) {
     useEffect(() => {
         if (!finish) return;
 
-        updateContext(
-            {
-                userName: name,
-            },
-            true
-        );
+        updateContext({
+            userName: name,
+            reset: true,
+        });
 
         auth.signOut();
     }, [finish]);

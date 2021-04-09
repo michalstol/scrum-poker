@@ -9,11 +9,11 @@ firebase.initializeApp({
     projectId: 'play-scrum-poker',
     storageBucket: 'play-scrum-poker.appspot.com',
     messagingSenderId: '505852253233',
-    appId: '1:505852253233:web:e31a91079d5f48888db110'
-  });
+    appId: '1:505852253233:web:e31a91079d5f48888db110',
+});
 
 // BASE
 export const auth = firebase.auth();
 export const db = firebase.firestore();
 
-// console.log({auth, db});
+// console.log({ auth, db });

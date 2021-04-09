@@ -11,6 +11,7 @@ export const routesArray: RoutesArray[] = [
         test: {
             authenticated: false,
             connected: false,
+            reset: 'both',
             roomID: undefined,
             role: null,
             userName: '',
@@ -21,6 +22,7 @@ export const routesArray: RoutesArray[] = [
         test: {
             authenticated: false,
             connected: true,
+            reset: 'both',
             roomID: undefined,
             role: null,
             userName: '',
@@ -31,6 +33,7 @@ export const routesArray: RoutesArray[] = [
         test: {
             authenticated: true,
             connected: true,
+            reset: false,
             roomID: undefined,
             role: null,
             userName: '',
@@ -41,6 +44,7 @@ export const routesArray: RoutesArray[] = [
         test: {
             authenticated: true,
             connected: true,
+            reset: false,
             roomID: undefined,
             role: null,
             userName: 'Foo',
@@ -51,6 +55,7 @@ export const routesArray: RoutesArray[] = [
         test: {
             authenticated: true,
             connected: true,
+            reset: false,
             roomID: 'foo-room-id',
             role: null,
             userName: 'Foo',
@@ -61,6 +66,7 @@ export const routesArray: RoutesArray[] = [
         test: {
             authenticated: true,
             connected: true,
+            reset: false,
             roomID: 'foo-room-id',
             role: 'croupier',
             userName: 'Foo',
@@ -71,14 +77,15 @@ export const routesArray: RoutesArray[] = [
 export default function router({
     authenticated,
     connected,
+    reset,
     roomID,
     role,
     userName,
 }: ContextInterface) {
-    if (!connected) return routesArray[0].url;
+    if (!connected || !!reset) return routesArray[0].url;
     if (!authenticated && connected) return routesArray[1].url;
 
-    if (authenticated && connected) {
+    if (authenticated && connected && !reset) {
         if (!userName) return routesArray[2].url;
         if (!roomID) return routesArray[3].url;
         if (!role) return routesArray[4].url;
