@@ -21,10 +21,13 @@ export default function SelectRole({
     updateContext,
     roomID,
 }: SelectRoleInterface): any {
-    const { uid, displayName }: any = auth.currentUser;
+    const { uid = undefined, displayName = undefined }: any =
+        auth.currentUser || {};
+
     const dbRoom: firestore.DocumentReference<firestore.DocumentData> = db
         .collection('rooms')
         .doc(roomID);
+
     const dbUser: firestore.CollectionReference = db
         .collection('rooms')
         .doc(roomID)

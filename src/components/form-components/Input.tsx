@@ -31,8 +31,8 @@ export default function Input({ setValue, label, ...all }: InputInterface) {
             <input
                 {...all}
                 className="input"
-                onChange={function (event) {
-                    const value = event.target.value;
+                onChange={function ({ target }) {
+                    const { value } = target;
 
                     if (!setValue) return;
 
@@ -44,7 +44,7 @@ export default function Input({ setValue, label, ...all }: InputInterface) {
                             setValue(value);
                             break;
                         default:
-                            setValue(value.trim());
+                            setValue(value);
                     }
                 }}
             />

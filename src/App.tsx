@@ -52,7 +52,10 @@ function App() {
             </PageWrapper>
 
             <PageWrapper render={page === 'sign-in'}>
-                <SignInForm />
+                <SignInForm
+                    reset={appState.reset}
+                    clearReset={() => updateContext({ reset: false })}
+                />
             </PageWrapper>
 
             <PageWrapper render={page === 'reset-user'}>
