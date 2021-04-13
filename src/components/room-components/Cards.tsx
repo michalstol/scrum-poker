@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer';
 
 import { scrumPoints } from '../../helpers/scrum';
@@ -10,18 +10,16 @@ interface CardsInterface {
 
 export default function Cards({ setBet, setVoted }: CardsInterface) {
     const constraintsRef = useRef(null);
-    const [selected, setSelected] = useState(0);
+    const [selected, setSelected] = useState(-1);
     const clickHandler = (cardNumber: number) => {
         if (selected === cardNumber) {
             setVoted(true);
+            setTimeout(() => setSelected(-1), 1000);
         } else {
             setSelected(cardNumber);
+            setBet(cardNumber);
         }
     };
-
-    useEffect(() => {
-        setBet(selected);
-    }, [selected]);
 
     return (
         <motion.div className="cards" ref={constraintsRef}>
