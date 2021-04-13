@@ -1,9 +1,9 @@
 import router, { routesArray } from './../router';
 
-routesArray.map(route => {
-    test(`Router - ${route.url}`, () => {
-        const value = router({ ...route.test });
+routesArray.map(({ url, test: data }) => {
+    test(`Router - ${url}`, () => {
+        const value = router({ ...data });
 
-        expect(value).toEqual(route.url);
+        expect(value).toEqual(url);
     });
 });

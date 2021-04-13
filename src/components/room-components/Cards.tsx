@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer';
 
-import { scrumPoints } from '../../helpers/scrum';
+import { formatNumber, scrumPoints } from '../../helpers/scrum';
 
 interface CardsInterface {
     setBet: React.Dispatch<React.SetStateAction<number>>;
@@ -38,7 +38,7 @@ export default function Cards({ setBet, setVoted }: CardsInterface) {
                     >
                         <div className="cards__content">
                             <div className="cards-number">
-                                {point === 0.5 ? '½' : point}
+                                {formatNumber(point)}
                             </div>
                             <div className="cards-button">
                                 V<br />O<br />T<br />E
