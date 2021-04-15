@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatNumber } from '../../helpers/scrum';
 
 interface BetNumberInterface {
     bet: number;
@@ -7,7 +8,7 @@ interface BetNumberInterface {
 export default function BetNumber({ bet }: BetNumberInterface) {
     return (
         <div className="bet-number">
-            <div className="bet-number__el">{bet === 0.5 ? '½' : bet}</div>
+            <div className="bet-number__el">{formatNumber(bet)}</div>
         </div>
     );
 }

@@ -82,8 +82,8 @@ export default function router({
     role,
     userName,
 }: ContextInterface) {
-    if (!connected || !!reset) return routesArray[0].url;
     if (!authenticated && connected) return routesArray[1].url;
+    if (!connected || !!reset) return routesArray[0].url;
 
     if (authenticated && connected && !reset) {
         if (!userName) return routesArray[2].url;

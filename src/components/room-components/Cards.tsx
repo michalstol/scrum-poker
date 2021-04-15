@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer';
 
-import { scrumPoints } from '../../helpers/scrum';
+import { formatNumber, scrumPoints } from '../../helpers/scrum';
 
 interface CardsInterface {
     setBet: React.Dispatch<React.SetStateAction<number>>;
@@ -10,18 +10,16 @@ interface CardsInterface {
 
 export default function Cards({ setBet, setVoted }: CardsInterface) {
     const constraintsRef = useRef(null);
-    const [selected, setSelected] = useState(0);
+    const [selected, setSelected] = useState(-1);
     const clickHandler = (cardNumber: number) => {
         if (selected === cardNumber) {
             setVoted(true);
+            setTimeout(() => setSelected(-1), 1000);
         } else {
             setSelected(cardNumber);
+            setBet(cardNumber);
         }
     };
-
-    useEffect(() => {
-        setBet(selected);
-    }, [selected]);
 
     return (
         <motion.div className="cards" ref={constraintsRef}>
@@ -40,7 +38,7 @@ export default function Cards({ setBet, setVoted }: CardsInterface) {
                     >
                         <div className="cards__content">
                             <div className="cards-number">
-                                {point === 0.5 ? '½' : point}
+                                {formatNumber(point)}
                             </div>
                             <div className="cards-button">
                                 V<br />O<br />T<br />E
