@@ -7,14 +7,17 @@ import { defaultInterface } from './contexts/AppContext';
 
 import DebugViews from './components/DebugView';
 import Auth from './base/Auth';
-import PageWrapper from './components/PageWrapper';
 import Intro from './components/Intro';
 import Settings from './components/Settings';
 import SignInForm from './components/SignInForm';
 import FirstVisit from './components/FirstVisit';
-import SetRoom from './components/SetRoom';
+import SelectRoom from './components/SelectRoom';
 import SelectRole from './components/SelectRole';
 import Room from './components/Room';
+
+import { redirect } from './router';
+import Router from './router/Router';
+import Route from './router/Route';
 
 import './styles/app.scss';
 
@@ -30,11 +33,24 @@ function App() {
         updateCookie && saveCookie({ ...newState });
     };
 
+    const updateRouter = () => {
+        const newLocation = router(appState);
+
+        if (newLocation === page) return;
+
+        redirect(newLocation);
+        setPage(newLocation);
+    };
+
     useEffect(() => {
-        setPage(router(appState));
+        redirect('/');
+    }, []);
+
+    useEffect(() => {
+        updateRouter();
     }, [appState]);
 
-    const { roomID, role } = appState;
+    const { reset, roomID, role } = appState;
 
     return (
         <>
@@ -42,38 +58,35 @@ function App() {
 
             <Auth updateContext={updateContext} />
 
-            <PageWrapper
-                render={page === 'connecting'}
-                opacity={1}
-                delay={0.5}
-                zIndex={9999}
-            >
-                <Intro />
-            </PageWrapper>
+            <Router>
+                <Route path="/">
+                    <Intro />
+                </Route>
 
-            <PageWrapper render={page === 'sign-in'}>
-                <SignInForm
-                    reset={appState.reset}
-                    clearReset={() => updateContext({ reset: false })}
-                />
-            </PageWrapper>
+                <Route path="/sign-in">
+                    <SignInForm
+                        reset={reset}
+                        clearReset={() => updateContext({ reset: false })}
+                    />
+                </Route>
 
-            <PageWrapper render={page === 'reset-user'}>
-                <FirstVisit updateContext={updateContext} />
-            </PageWrapper>
+                <Route path="/welcome">
+                    <FirstVisit updateContext={updateContext} />
+                </Route>
 
-            <PageWrapper render={page === 'select-room'}>
-                <SetRoom updateContext={updateContext} />
-            </PageWrapper>
+                <Route path="/select-room">
+                    <SelectRoom updateContext={updateContext} />
+                </Route>
 
-            <PageWrapper render={page === 'select-role'}>
-                <SelectRole updateContext={updateContext} roomID={roomID} />
-            </PageWrapper>
+                <Route path="/select-role">
+                    <SelectRole updateContext={updateContext} roomID={roomID} />
+                </Route>
 
-            <PageWrapper render={page === 'room'}>
-                <Settings roomID={roomID} />
-                <Room roomID={roomID} role={role} />
-            </PageWrapper>
+                <Route path="/room">
+                    <Settings roomID={roomID} />
+                    <Room roomID={roomID} role={role} />
+                </Route>
+            </Router>
         </>
     );
 }

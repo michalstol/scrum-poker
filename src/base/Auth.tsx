@@ -5,7 +5,7 @@ import { saveCookie } from './../helpers/cookie';
 
 import { UpdateContextInterface, defaultAuth } from './../contexts/AppContext';
 
-export default function Auth({ updateContext }: UpdateContextInterface): any {
+export default function Auth({ updateContext }: UpdateContextInterface): null {
     const [authState, setAuthState] = useState({ ...defaultAuth });
     const [userData, setUserData] = useState({ uid: 'false' });
 
@@ -18,7 +18,7 @@ export default function Auth({ updateContext }: UpdateContextInterface): any {
         updateContext({
             ...authState,
         });
-    }, [authState.authenticated, authState.connected]);
+    }, [authState.authenticated, authState.userName]);
 
     useEffect(() => {
         auth.onAuthStateChanged(user => {
@@ -32,5 +32,5 @@ export default function Auth({ updateContext }: UpdateContextInterface): any {
         });
     }, [userData.uid]);
 
-    return <></>;
+    return null;
 }

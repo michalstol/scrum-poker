@@ -15,17 +15,17 @@ export default function RoomPlayer({
     roomID,
     roomName,
 }: RoomComponentInterface) {
-    const { uid }: any = auth.currentUser;
-    const dbCurrentUser = db
-        .collection('rooms')
-        .doc(roomID)
-        .collection('users')
-        .doc(uid);
-
+    const { uid }: any = auth?.currentUser || { uid: null };
     const [bet, setBet] = useState(-1);
     const [voted, setVoted] = useState(false);
 
+    const dbCurrentUser = !uid
+        ? false
+        : db.collection('rooms').doc(roomID).collection('users').doc(uid);
+
     useEffect(() => {
+        if (!dbCurrentUser) return;
+
         const dbConnection = dbCurrentUser.onSnapshot(
             (doc: firestore.DocumentSnapshot) => {
                 if (doc.exists) {
@@ -43,7 +43,7 @@ export default function RoomPlayer({
     }, []);
 
     useEffect(() => {
-        if (!voted) return;
+        if (!dbCurrentUser || !voted) return;
 
         dbCurrentUser.update({
             bet,
@@ -51,11 +51,7 @@ export default function RoomPlayer({
         });
     }, [voted]);
 
-    const submitHandler = (event: React.SyntheticEvent) => {
-        event.preventDefault();
-
-        setVoted(true);
-    };
+    if (!dbCurrentUser) return null;
 
     return (
         <Page

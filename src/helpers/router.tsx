@@ -7,7 +7,7 @@ interface RoutesArray {
 
 export const routesArray: RoutesArray[] = [
     {
-        url: 'connecting',
+        url: '/',
         test: {
             authenticated: false,
             connected: false,
@@ -18,7 +18,7 @@ export const routesArray: RoutesArray[] = [
         },
     },
     {
-        url: 'sign-in',
+        url: '/sign-in',
         test: {
             authenticated: false,
             connected: true,
@@ -29,7 +29,7 @@ export const routesArray: RoutesArray[] = [
         },
     },
     {
-        url: 'reset-user',
+        url: '/welcome',
         test: {
             authenticated: true,
             connected: true,
@@ -40,7 +40,7 @@ export const routesArray: RoutesArray[] = [
         },
     },
     {
-        url: 'select-room',
+        url: '/select-room',
         test: {
             authenticated: true,
             connected: true,
@@ -51,7 +51,7 @@ export const routesArray: RoutesArray[] = [
         },
     },
     {
-        url: 'select-role',
+        url: '/select-role',
         test: {
             authenticated: true,
             connected: true,
@@ -62,7 +62,7 @@ export const routesArray: RoutesArray[] = [
         },
     },
     {
-        url: 'room',
+        url: '/room',
         test: {
             authenticated: true,
             connected: true,
@@ -81,7 +81,7 @@ export default function router({
     roomID,
     role,
     userName,
-}: ContextInterface) {
+}: ContextInterface): string {
     if (!authenticated && connected) return routesArray[1].url;
     if (!connected || !!reset) return routesArray[0].url;
 
@@ -94,4 +94,5 @@ export default function router({
     }
 
     console.warn('Router -- problem with select page');
+    return '/';
 }

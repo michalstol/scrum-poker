@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import firebase from 'firebase';
 
-import { auth, db } from './../firebase/firebase';
+import { auth, db } from '../firebase/firebase';
 
-import { UpdateContextInterface } from './../contexts/AppContext';
-import { defaultRoom } from './../contexts/RoomContext';
+import { UpdateContextInterface } from '../contexts/AppContext';
+import { defaultRoom } from '../contexts/RoomContext';
 
 import Alert from './Alert';
 import Container from './Container';
