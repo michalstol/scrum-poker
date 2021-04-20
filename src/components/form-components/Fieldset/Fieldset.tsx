@@ -8,8 +8,9 @@ interface FieldsetInterface
 
 /**
  *
- * @param { React.ReactNode } children  - React children
+ * @param {string} label - is a content for label HTML element
  * @param { string } className - Class name
+ * @param { React.ReactNode } children  - React children
  * @returns { JSX.Element }
  */
 export default function Fieldset({
