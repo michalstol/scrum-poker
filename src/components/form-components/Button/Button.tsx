@@ -4,7 +4,6 @@ import classNames from 'classnames';
 interface ButtonInterface
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'active' | 'distance' | 'distance-small' | 'secondary' | 'revers';
-    children: React.ReactNode;
 }
 
 /**
