@@ -4,7 +4,7 @@ import { auth } from './../../firebase/firebase';
 
 import Form from './../form-components/Form';
 import Input from './../form-components/Input';
-import Button from './../form-components/Button';
+import Button from './../form-components/Button/Button';
 
 interface ChangePasswordInterface {
     setError: React.Dispatch<React.SetStateAction<string>>;
@@ -68,7 +68,7 @@ export default function ChangePassword({
                 disabled={preventForm}
             />
 
-            <Button variation="button--distance" disabled={preventForm}>
+            <Button variant="distance" disabled={preventForm}>
                 Save new password
             </Button>
         </Form>
