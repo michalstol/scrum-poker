@@ -11,7 +11,7 @@ import Alert from './../Alert';
 import Container from './../Container';
 import RoomTable from './RoomTable';
 import Form from '../form-components/Form';
-import Button from '../form-components/Button';
+import Button from '../form-components/Button/Button';
 
 const resetUserData = {
     bet: scrumPoints[0],
