@@ -12,7 +12,6 @@ import Header from './Header';
 import Distance from './Distance';
 import Form from './form-components/Form';
 import Input from './form-components/Input';
-// import Button from './form-components/Button';
 import Button from './form-components/Button/Button';
 
 export default function SetRoom({

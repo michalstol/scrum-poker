@@ -8,7 +8,8 @@ import { RoomIDInterface } from './../contexts/AppContext';
 import Alert from './Alert';
 import Container from './Container';
 import Header from './Header';
-import Button from './form-components/Button';
+// import Button from './form-components/Button';
+import Button from './form-components/Button/Button';
 
 interface SettingsInterface extends RoomIDInterface {}
 
@@ -44,7 +45,7 @@ export default function Settings({ roomID }: SettingsInterface) {
         { bottom: 0, color: '#ffffff', opacity: 1 }
     );
 
-    const clickHandler = (event: Event) => {
+    const clickHandler = (event: React.SyntheticEvent) => {
         event.preventDefault();
 
         const $target = event.target as HTMLElement;
@@ -82,14 +83,14 @@ export default function Settings({ roomID }: SettingsInterface) {
 
                     <Button
                         type="button"
-                        variation="button--revers"
+                        variant="revers"
                         onClick={clickHandler}
                     >
                         ID
                     </Button>
                     <Button
                         type="button"
-                        variation="button--revers"
+                        variant="revers"
                         onClick={clickHandler}
                     >
                         URL
