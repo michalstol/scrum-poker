@@ -71,7 +71,7 @@ function App() {
             </PageWrapper>
 
             <PageWrapper render={page === 'room'}>
-                <Settings roomID={roomID} />
+                <Settings updateContext={updateContext} roomID={roomID} />
                 <Room roomID={roomID} role={role} />
             </PageWrapper>
         </>

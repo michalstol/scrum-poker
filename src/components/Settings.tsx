@@ -3,36 +3,23 @@ import { Frame, useCycle } from 'framer';
 
 import { auth } from './../firebase/firebase';
 
-import { RoomIDInterface } from './../contexts/AppContext';
+import {
+    RoomIDInterface,
+    UpdateContextInterface,
+} from './../contexts/AppContext';
+
+import copy from './../helpers/copy';
 
 import Alert from './Alert';
 import Container from './Container';
 import Header from './Header';
-import Button from './form-components/Button';
 
-interface SettingsInterface extends RoomIDInterface {}
+import ViewStart from './settings-components/ViewStart';
+import ViewCopyID from './settings-components/ViewCopyID';
 
-function copy(id: string | undefined, type: 'id' | 'url'): string {
-    if (!id) return '';
+interface SettingsInterface extends RoomIDInterface, UpdateContextInterface {}
 
-    const $input = document.createElement('input');
-
-    $input.value =
-        type === 'url'
-            ? `${window.location.origin}?roomID=${encodeURI(id)}`
-            : id;
-
-    document.body.appendChild($input);
-    $input.select();
-    document.execCommand('copy');
-    $input.remove();
-
-    return `${
-        type === 'id' ? 'Room ID' : 'URL address'
-    } is copied to your clipboard.`;
-}
-
-export default function Settings({ roomID }: SettingsInterface) {
+export default function Settings({ roomID, updateContext }: SettingsInterface) {
     const userName = auth.currentUser?.displayName || '';
     const [alertContent, setAlertContent] = useState('');
     const [animateContainer, cycleContainer] = useCycle(
@@ -73,28 +60,12 @@ export default function Settings({ roomID }: SettingsInterface) {
                 />
 
                 <Header
-                    title="Would you like to share your room? Just copy the room ID or URL address."
+                    title="Would you like to do?"
                     subtitle={`What's up ${userName}?`.trim()}
                 />
 
-                <div className="settings__container">
-                    <div className="settings__field-id">{roomID}</div>
-
-                    <Button
-                        type="button"
-                        variation="button--revers"
-                        onClick={clickHandler}
-                    >
-                        ID
-                    </Button>
-                    <Button
-                        type="button"
-                        variation="button--revers"
-                        onClick={clickHandler}
-                    >
-                        URL
-                    </Button>
-                </div>
+                <ViewStart setAction={() => {}} />
+                {/* <ViewCopyID roomID={roomID} clickHandler={clickHandler} /> */}
             </Container>
 
             <Frame
