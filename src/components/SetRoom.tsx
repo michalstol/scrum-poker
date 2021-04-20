@@ -12,7 +12,8 @@ import Header from './Header';
 import Distance from './Distance';
 import Form from './form-components/Form';
 import Input from './form-components/Input';
-import Button from './form-components/Button';
+// import Button from './form-components/Button';
+import Button from './form-components/Button/Button';
 
 export default function SetRoom({
     updateContext,
@@ -151,9 +152,9 @@ export default function SetRoom({
 
                 <Button
                     type={tab === 0 ? 'submit' : 'button'}
-                    variation={tab !== 0 ? 'button--secondary' : ''}
+                    variant={tab !== 0 ? 'secondary' : undefined}
                     disabled={preventForm}
-                    onClick={(event: Event) => {
+                    onClick={(event: React.SyntheticEvent) => {
                         tab !== 0 && event.preventDefault();
                         switchTab(0);
                     }}
@@ -169,9 +170,9 @@ export default function SetRoom({
 
                 <Button
                     type={tab === 1 ? 'submit' : 'button'}
-                    variation={tab !== 1 ? 'button--secondary' : ''}
+                    variant={tab !== 1 ? 'secondary' : undefined}
                     disabled={preventForm}
-                    onClick={(event: Event) => {
+                    onClick={(event: React.SyntheticEvent) => {
                         tab !== 1 && event.preventDefault();
                         switchTab(1);
                     }}
