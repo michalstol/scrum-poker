@@ -27,6 +27,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
+        "test:unit": "react-scripts test --env=node",
         "deploy-feature": "react-scripts build && firebase hosting:channel:deploy feature-preview",
         "eject": "react-scripts eject"
     },
