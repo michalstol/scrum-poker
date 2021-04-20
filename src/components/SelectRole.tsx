@@ -13,7 +13,7 @@ import Alert from './Alert';
 import Container from './Container';
 import Header from './Header';
 import Form from './form-components/Form';
-import Button from './form-components/Button';
+import Button from './form-components/Button/Button';
 
 interface SelectRoleInterface extends UpdateContextInterface, RoomIDInterface {}
 
@@ -112,8 +112,8 @@ export default function SelectRole({
                 {roles.map((role, index) => (
                     <Button
                         key={`select-role-${index}`}
+                        variant="distance-small"
                         type="button"
-                        variation="button--distance-small"
                         disabled={preventForm}
                         onClick={() => selectRoleHandler(role)}
                     >

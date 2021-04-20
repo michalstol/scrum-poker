@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
-interface ButtonInterface extends React.HTMLAttributes<HTMLButtonElement> {
+interface ButtonInterface
+    extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'active' | 'distance' | 'distance-small' | 'secondary' | 'revers';
     children: React.ReactNode;
 }
@@ -10,6 +11,7 @@ interface ButtonInterface extends React.HTMLAttributes<HTMLButtonElement> {
  *
  * @param { 'active' | 'distance' | 'distance-small' | 'secondary' | 'revers' } version - Avaiable visual versions of the component
  * @param { React.ReactNode } children - React children
+ * @param { React.ButtonHTMLAttributes<HTMLButtonElement> } props - Typical properties for HTML Button Element
  * @returns { JSX.Element }
  */
 export default function Button({
