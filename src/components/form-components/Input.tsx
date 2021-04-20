@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Fieldset from './Fieldset/Fieldset';
+
 interface InputInterface {
     type: string;
     name: string;
@@ -26,8 +28,7 @@ interface InputInterface {
 
 export default function Input({ setValue, label, ...all }: InputInterface) {
     return (
-        <fieldset className="fieldset">
-            {label && <label className="fieldset-label">{label}</label>}
+        <Fieldset label={label}>
             <input
                 {...all}
                 className="input"
@@ -49,6 +50,6 @@ export default function Input({ setValue, label, ...all }: InputInterface) {
                 }}
             />
             <div className="input-border"></div>
-        </fieldset>
+        </Fieldset>
     );
 }

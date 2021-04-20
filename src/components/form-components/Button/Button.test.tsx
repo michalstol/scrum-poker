@@ -7,7 +7,7 @@ afterEach(cleanup);
 
 it('Button component - render a button with the secondary variant', () => {
     const variant = 'secondary';
-    const children = 'Text';
+    const children = 'Foo content';
 
     const { container } = render(<Button variant={variant}>{children}</Button>);
     const { firstChild } = container;
