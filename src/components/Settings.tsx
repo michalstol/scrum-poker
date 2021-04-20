@@ -8,7 +8,6 @@ import { RoomIDInterface } from './../contexts/AppContext';
 import Alert from './Alert';
 import Container from './Container';
 import Header from './Header';
-// import Button from './form-components/Button';
 import Button from './form-components/Button/Button';
 
 interface SettingsInterface extends RoomIDInterface {}

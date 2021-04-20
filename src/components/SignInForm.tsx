@@ -10,7 +10,7 @@ import Container from './Container';
 import Header from './Header';
 import Form from './form-components/Form';
 import Input from './form-components/Input';
-import Button from './form-components/Button';
+import Button from './form-components/Button/Button';
 
 const emailLength: number = 5;
 const passwordLength: number = 8;
@@ -82,7 +82,7 @@ export default function SignInForm({
                     />
 
                     <Button
-                        variation="button--distance"
+                        variant="distance"
                         disabled={
                             preventForm ||
                             !email ||
